@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import { BookCard } from "@/components/book-card";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -158,11 +159,54 @@ export default function Page() {
           </div>
         </div>
       </section>
-      
-      {/*
-        THE HACKATHONS SECTION HAS BEEN REMOVED SINCE THERE IS NO DATA FOR IT.
-      */}
-      
+
+      {/* Reading List Section */}
+      <section id="reading">
+        <div className="space-y-12 w-full py-12">
+          <BlurFade delay={BLUR_FADE_DELAY * 13}>
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
+                  Reading List
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  I love to read
+                </h2>
+                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Here are some of the books that have shaped my thinking.
+                </p>
+              </div>
+            </div>
+          </BlurFade>
+          <div className="space-y-8 max-w-4xl mx-auto">
+            {DATA.books.map((theme, id) => (
+              <BlurFade key={theme.theme} delay={BLUR_FADE_DELAY * 14 + id * 0.1}>
+                {theme.theme && (
+                  <h3 className="text-2xl font-bold tracking-tighter mb-4">
+                    {theme.theme}
+                  </h3>
+                )}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {theme.books
+                    .filter((book) => book.title) // Only show books that have a title
+                    .map((book, bookId) => (
+                      <BlurFade
+                        key={book.title}
+                        delay={BLUR_FADE_DELAY * 15 + bookId * 0.05}
+                      >
+                        <BookCard
+                          title={book.title}
+                          author={book.author}
+                        />
+                      </BlurFade>
+                    ))}
+                </div>
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>

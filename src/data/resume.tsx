@@ -66,7 +66,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       badges: [],
       location: "London, UK",
       title: "Laboratory Asset Coordinator",
-      logoUrl: "/anthonynolan.png",
+      logoUrl: "/anthonynolan.jpg",
       start: "August 2021",
       end: "PRESENT",
       description:
@@ -82,7 +82,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       href: "https://www.medifast.com.hk/en/",
       location: "Hong Kong",
       title: "Senior Business Development Officer",
-      logoUrl: "/medifast.png",
+      logoUrl: "/medifasthk.jpeg",
       start: "August 2020",
       end: "May 2021",
       description:
@@ -96,7 +96,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       href: "https://www.medifast.com.hk/en/",
       location: "Hong Kong",
       title: "Business Development Officer",
-      logoUrl: "/medifast.png",
+      logoUrl: "/medifasthk.jpeg",
       start: "September 2017",
       end: "July 2020",
       description:
@@ -132,7 +132,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       school: "Technische Universität München",
       href: "https://www.tum.de/",
       degree: "Summer Exchange, Nanoscience and Nanotechnology",
-      logoUrl: "/tum.png",
+      logoUrl: "/tum.svg",
       start: "Jun 2012",
       end: "Jul 2012",
     },
