@@ -70,7 +70,11 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       start: "August 2021",
       end: "PRESENT",
       description:
-        `Developed and deployed 5+ workflows using Power Automate to automate repetitive tasks, saving an estimated 10 hours of manual work per week. Analysed existing operational workflows, gathered stakeholder requirements, and implemented process improvements that reduced system inefficiencies by 20%. Leveraged data analysis to forecast resource needs and optimise procurement cycles, cutting operational costs by 10%. Maintained rigorous compliance with ISO industry standards, ensuring 100% adherence through meticulous documentation and quality assurance protocols. Coordinated over 500 equipment maintenance schedules annually, minimising downtime by 50% to achieve 99% operational uptime.`,
+        [cite_start]`- Developed and deployed 5+ workflows using Power Automate to automate repetitive tasks, saving an estimated 10 hours of manual work per week[cite: 33].
+- [cite_start]Analysed existing operational workflows, gathered stakeholder requirements, and implemented process improvements that reduced system inefficiencies by 20%[cite: 34].
+- [cite_start]Leveraged data analysis to forecast resource needs and optimise procurement cycles, cutting operational costs by 10%[cite: 35].
+- [cite_start]Maintained rigorous compliance with ISO industry standards, ensuring 100% adherence through meticulous documentation and quality assurance protocols[cite: 36].
+- [cite_start]Coordinated over 500 equipment maintenance schedules annually, minimising downtime by 50% to achieve 99% operational uptime[cite: 37].`,
     },
     {
       company: "MediFast (Hong Kong) Ltd.",
@@ -82,7 +86,9 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       start: "August 2020",
       end: "May 2021",
       description:
-        `Engineered an automation solution using VBA to streamline administrative workflows, eliminating 80% of manual task time. Mentored a team of three, improving team productivity by 20% through enhanced training and collaborative processes. Utilised data from multiple sources to define customer profiles, improving the effectiveness of marketing strategies by 20%.`,
+        [cite_start]`- Engineered an automation solution using VBA to streamline administrative workflows, eliminating 80% of manual task time[cite: 39].
+- [cite_start]Mentored a team of three, improving team productivity by 20% through enhanced training and collaborative processes[cite: 40].
+- [cite_start]Utilised data from multiple sources to define customer profiles, improving the effectiveness of marketing strategies by 20%[cite: 41].`,
     },
     {
       company: "MediFast (Hong Kong) Ltd.",
@@ -94,7 +100,9 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       start: "September 2017",
       end: "July 2020",
       description:
-        `Analysed multi-source customer data to identify new market opportunities, driving a 20% increase in service adoption. Translated complex client requirements into detailed service agreements, converting 85% of high-value corporate leads. Coordinated logistics for large-scale service delivery projects, engaging over 500 participants and improving client satisfaction by 20%.`,
+        [cite_start]`- Analysed multi-source customer data to identify new market opportunities, driving a 20% increase in service adoption[cite: 43].
+- [cite_start]Translated complex client requirements into detailed service agreements, converting 85% of high-value corporate leads[cite: 44].
+- [cite_start]Coordinated logistics for large-scale service delivery projects, engaging over 500 participants and improving client satisfaction by 20%[cite: 45].`,
     },
     {
       company: "Various Companies",
@@ -106,7 +114,9 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       start: "2013",
       end: "2017",
       description:
-        `Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation. Sales position at DKSH Hong Kong Ltd. and World Ways Co. (HK) Ltd. Laboratory Technician , ASB-Biodiesel (Hong Kong) Ltd.`,
+        [cite_start]`- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation[cite: 49].
+- [cite_start]Sales position at DKSH Hong Kong Ltd. and World Ways Co. (HK) Ltd[cite: 47].
+- [cite_start]Laboratory Technician, ASB-Biodiesel (Hong Kong) Ltd[cite: 48].`,
     },
   ],
   education: [
