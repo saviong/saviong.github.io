@@ -24,6 +24,13 @@ export default function Page() {
                 text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
               />
               <BlurFadeText
+                delay={BLUR_FADE_DELAY * 1.5}
+                className="text-sm text-muted-foreground md:text-base"
+                yOffset={8}
+                text={`I'm Ng Chung Yeung (吳仲洋). In Cantonese, "Ng" (like the 'ng' in song), "Chung" (ch-uh-ng), "Yeung" (sounds like 'young'). 
+                My English and Christian name is Savio.`}
+              />
+              <BlurFadeText
                 className="max-w-[600px] md:text-xl"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
