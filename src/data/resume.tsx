@@ -22,7 +22,6 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     "Azure",
     "AWS",
     "Terraform",
-    "ARM template",
     "Bicep",
     "Typescript",
     "Python",
