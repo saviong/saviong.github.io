@@ -114,7 +114,7 @@ work: [
     {
       school: "Hong Kong University of Science and Technology",
       href: "https://hkust.edu.hk/",
-      degree: "BSc (Hons) in Chemistry (2nd Class Honors)",
+      degree: "BSc (Hons) in Chemistry",
       logoUrl: "/hkust.png",
       start: "2010",
       end: "2013",
@@ -131,7 +131,7 @@ work: [
   projects: [
     {
       title: "Serverless Portfolio with CI/CD on Azure",
-      href: "https://github.com/saviong/savio-portfolio-backend",
+      href: "https://github.com/saviong/html-resume-frontend/",
       dates: "Ongoing",
       active: true,
       description:
@@ -151,12 +151,17 @@ work: [
       links: [
         {
           type: "Website",
-          href: "https://saviong.github.io/",
+          href: "https://mycv.saviong.com",
           icon: <Icons.globe className="size-3" />,
         },
         {
-            type: "Source",
-            href: "https://github.com/saviong/savio-portfolio-backend",
+            type: "Source - Frontend",
+            href: "https://github.com/saviong/html-resume-frontend",
+            icon: <Icons.github className="size-3" />,
+          },
+        {
+            type: "Source - Backend",
+            href: "https://github.com/saviong/html-resume-backend",
             icon: <Icons.github className="size-3" />,
           },
       ],
@@ -180,7 +185,7 @@ work: [
       links: [
         {
           type: "Source",
-          href: "https://github.com/saviong/Terraform-multi-cloud-deployment",
+          href: "https://github.com/saviong/terraform-multicloud-vm",
           icon: <Icons.github className="size-3" />,
         },
       ],
@@ -203,8 +208,13 @@ work: [
       ],
       links: [
         {
-          type: "Source",
-          href: "https://github.com/saviong/IaC-templates-for-multi-cloud-VM-deployment",
+          type: "Source - AWS",
+          href: "https://github.com/saviong/ec2-deploy",
+          icon: <Icons.github className="size-3" />,
+        },
+        {
+          type: "Source - Azure",
+          href: "https://github.com/saviong/vm-deploy",
           icon: <Icons.github className="size-3" />,
         },
       ],
