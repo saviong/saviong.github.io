@@ -9,7 +9,7 @@ export const DATA = {
   locationLink: "https://www.google.com/maps/place/London",
   description:
     "A results-driven chemist transitioning into Cloud and DevOps, holding Microsoft Certified: Azure Administrator (AZ-104) and Professional Scrum Master (PSM I) certifications.",
-summary:
+  summary:
     `My fascination with tech started early. Long before I had a formal job, I was the kid in Hong Kong hosting simple web games in PHP and CGI just for the fun of it. That love for building things and solving puzzles has been a constant thread throughout my life.
 
 My official journey began with a Chemistry degree in Hong Kong, but my world really opened up during an exchange semester in Germany at TUM. I fell in love with the culture, the food, and, of course, the beer. That experience, along with my travels, shaped how I see the world and the problems I want to solve.
@@ -17,6 +17,7 @@ My official journey began with a Chemistry degree in Hong Kong, but my world rea
 Back in the professional world, I found myself instinctively looking for ways to improve processes. I started automating administrative tasks with VBA and later built workflows in Power Automate that saved my team hours of manual work every week. That was my lightbulb moment. I realized my true passion was using technology to make life easier and more efficient. This led me down the path of Cloud and DevOps, where I swapped the lab for a command line and dove into building scalable infrastructure with tools like Terraform and Bicep.
 
 When I'm not in front of a screen, you can find me engaged in one of my many hobbies. I enjoy bringing ideas to life with my 3D printer, whether it's a useful gadget or a custom figure. I unwind by playing piano, keyboard, or guitar. Having grown up in Hong Kong, I have a deep love for the outdoors and spent many weekends hiking and camping. I'm also an avid gamer—whether on my Xbox and Switch or firing up some retro classics—and I love to cook.`,
+  avatarUrl: "/me.png",
   skills: [
     "React",
     "Next.js",
