@@ -178,31 +178,32 @@ export default function Page() {
               </div>
             </div>
           </BlurFade>
-          <div className="space-y-8 max-w-4xl mx-auto">
-            {DATA.books.map((theme, id) => (
-              <BlurFade key={theme.theme} delay={BLUR_FADE_DELAY * 14 + id * 0.1}>
-                {theme.theme && (
-                  <h3 className="text-2xl font-bold tracking-tighter mb-4">
-                    {theme.theme}
-                  </h3>
-                )}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {theme.books
-                    .filter((book) => book.title) // Only show books that have a title
-                    .map((book, bookId) => (
-                      <BlurFade
-                        key={book.title}
-                        delay={BLUR_FADE_DELAY * 15 + bookId * 0.05}
-                      >
+
+          {/* This is the new timeline layout */}
+          <div className="max-w-2xl mx-auto space-y-10">
+            {DATA.books.map((category, categoryId) => {
+              const validBooks = category.books.filter((book) => book.title);
+              if (validBooks.length === 0) return null;
+
+              return (
+                <BlurFade key={category.theme} delay={BLUR_FADE_DELAY * 14 + categoryId * 0.1}>
+                  <div key={category.theme}>
+                    <h3 className="text-xl font-semibold mb-6">{category.theme}</h3>
+                    <ul>
+                      {validBooks.map((book, bookId) => (
                         <BookCard
+                          key={book.number}
+                          number={book.number}
                           title={book.title}
                           author={book.author}
+                          isLastItem={bookId === validBooks.length - 1}
                         />
-                      </BlurFade>
-                    ))}
-                </div>
-              </BlurFade>
-            ))}
+                      ))}
+                    </ul>
+                  </div>
+                </BlurFade>
+              );
+            })}
           </div>
         </div>
       </section>
