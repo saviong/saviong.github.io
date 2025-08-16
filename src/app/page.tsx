@@ -171,7 +171,7 @@ export default function Page() {
                   On My Bookshelf
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  A selection of books that I've found insightful or have significantly influenced my perspective on technology, leadership, and society.
+                  A selection of books that I&apos;ve found insightful or have significantly influenced my perspective on technology, leadership, and society.
                 </p>
               </div>
             </div>
