@@ -32,7 +32,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     "Kubernetes",
     "Github Actions (CI/CD)",
     "Bash",
-    "PowerShell"
+    "PowerShell",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
