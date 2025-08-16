@@ -130,9 +130,7 @@ export default function Page() {
                   Check out my latest work
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  I&apos;ve worked on a variety of projects, from simple
-                  websites to complex web applications. Here are a few of my
-                  favorites.
+                  I enjoy building solutions that are scalable, automated, and efficient. Here are a few examples of how I apply these concepts in my work.
                 </p>
               </div>
             </div>
@@ -170,10 +168,10 @@ export default function Page() {
                   Reading List
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  I love to read
+                  On My Bookshelf
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Here are some of the books that have shaped my thinking.
+                  A selection of books that I've found insightful or have significantly influenced my perspective on technology, leadership, and society.
                 </p>
               </div>
             </div>

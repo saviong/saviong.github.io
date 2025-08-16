@@ -23,12 +23,16 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     "AWS",
     "Terraform",
     "Bicep",
+    "CloudFormation"
     "Typescript",
-    "Python",
+    "Javascript",
     "Next.js",
+    "Python",
     "Docker",
     "Kubernetes",
     "Github Actions (CI/CD)",
+    "Bash",
+    "PowerShell"
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -110,13 +114,13 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       href: "#",
       location: "Hong Kong",
       title: "Early Career Experience",
-      logoUrl: "/earlycareer.png",
+      logoUrl: "https://static.vecteezy.com/system/resources/previews/024/208/012/non_2x/simple-briefcase-icon-the-icon-can-be-used-for-websites-print-templates-presentation-templates-illustrations-etc-free-vector.jpg",
       start: "2013",
       end: "2017",
       description:
         `- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation.
-- Sales position at DKSH Hong Kong Ltd. and World Ways Co. (HK) Ltd.
-- Laboratory Technician, ASB-Biodiesel (Hong Kong) Ltd.`,
+- Sales position at DKSH and World Ways Co. (HK) Ltd.
+- Laboratory Technician, ASB-Biodiesel`,
     },
   ],
   education: [
@@ -141,7 +145,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     {
       title: "Serverless Portfolio with CI/CD on Azure",
       href: "https://github.com/saviong/html-resume-frontend/",
-      dates: "Ongoing",
+      dates: "Aug 2025",
       active: true,
       description:
         `Deployed a serverless, CI/CD-enabled personal portfolio website on Azure. Implemented a visitor counter using an Azure Function (Python) to write to a Cosmos DB table, triggered via a REST API. Automated infrastructure provisioning and application deployment using ARM templates and a GitHub Actions pipeline.`,
@@ -180,7 +184,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     {
       title: "Multi-Cloud VM Deployment with Terraform",
       href: "https://github.com/saviong/Terraform-multi-cloud-deployment",
-      dates: "Ongoing",
+      dates: "Jun 2025",
       active: true,
       description:
         `Authored a single Terraform configuration to provision identical Nginx web servers across both AWS and Azure simultaneously. Reduced manual setup time by 95% and enabled consistent environments for cross-cloud disaster recovery testing.`,
@@ -204,7 +208,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     {
       title: "Secure & Reproducible IaC Templates for AWS & Azure",
       href: "https://github.com/saviong/IaC-templates-for-multi-cloud-VM-deployment",
-      dates: "Ongoing",
+      dates: "Aug 2025",
       active: true,
       description:
         `Developed parameterised templates for deploying hardened Linux VMs, standardizing builds and reducing provisioning errors. Cut VM deployment time from hours to under 10 minutes, facilitating peer review and GitOps workflows.`,
@@ -241,13 +245,13 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
           number: 1,
         },
         {
-          title: "",
-          author: "",
+          title: "Atomic Habits",
+          author: "James Clear",
           number: 2,
         },
         {
-          title: "",
-          author: "",
+          title: "Leadership Strategy and Tactics: Field Manual",
+          author: "Jocko Willink",
           number: 3,
         },
         {
