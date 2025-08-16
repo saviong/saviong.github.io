@@ -23,7 +23,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     "AWS",
     "Terraform",
     "Bicep",
-    "CloudFormation"
+    "CloudFormation",
     "Typescript",
     "Javascript",
     "Next.js",
