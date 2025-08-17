@@ -18,22 +18,6 @@ Back in the professional world, I found myself instinctively looking for ways to
 
 When I'm not in front of a screen, you can find me engaged in one of my many hobbies. I enjoy bringing ideas to life with my 3D printer, whether it's a useful gadget or a custom figure. I unwind by playing piano, keyboard, or guitar. Having grown up in Hong Kong, I have a deep love for the outdoors and spent many weekends hiking and camping. I'm also an avid gamer—whether on my Xbox and Switch or firing up some retro classics—and I love to cook.`,
   avatarUrl: "/me.png",
-  skills: [
-    "Azure",
-    "AWS",
-    "Terraform",
-    "Bicep",
-    "CloudFormation",
-    "Typescript",
-    "Javascript",
-    "Next.js",
-    "Python",
-    "Docker",
-    "Kubernetes",
-    "Github Actions (CI/CD)",
-    "Bash",
-    "PowerShell",
-  ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },

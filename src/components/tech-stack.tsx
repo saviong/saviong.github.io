@@ -113,7 +113,7 @@ export const TechStack = () => {
                             Tools and Technologies
                         </h2>
                         <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                            The primary tools and technologies I work with to build and automate infrastructure.
+                            The tools and technologies I use to build and automate infrastructure.
                         </p>
                     </div>
                 </div>
