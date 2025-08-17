@@ -52,13 +52,9 @@ export default function Page() {
       <section id="career-path">
         <div className="w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-xl font-bold">
-                  Chemist turned Cloud Engineer
-                </h2>
-              </div>
-            </div>
+            <h2 className="text-xl font-bold">
+              Chemist turned Cloud Engineer
+            </h2>
           </BlurFade>
           <CareerPath />
         </div>
