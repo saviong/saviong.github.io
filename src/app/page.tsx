@@ -50,7 +50,7 @@ export default function Page() {
         </div>
       </section>
       <section id="career-path">
-        <div className="w-full py-12">
+        <div className="w-full py-6">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
             <h2 className="text-xl font-bold">
               Chemist turned Cloud Engineer
