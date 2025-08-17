@@ -59,7 +59,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
         name: "Send Email",
         url: "mailto:yeungson@gmail.com",
         icon: Icons.email,
-        navbar: false,
+        navbar: true,
       },
     },
   },
@@ -106,16 +106,12 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       href: "#",
       badges: [],
       location: "Hong Kong",
-      title: "Previous Roles in Sales & Laboratory Services",
+      title: "Medical Sales Representative at DKSH\nSales Executive at World Ways Co. (HK) Ltd.\nLaboratory Technician at ASB Biodiesel",
       logoUrl: "https://static.vecteezy.com/system/resources/previews/024/208/012/non_2x/simple-briefcase-icon-the-icon-can-be-used-for-websites-print-templates-presentation-templates-illustrations-etc-free-vector.jpg",
       start: "2013",
       end: "2017",
       description:
-        `**Medical Sales Representative at DKSH**
-**Sales Executive at World Ways Co. (HK) Ltd.**
-**Laboratory Technician at ASB Biodiesel**
-
-- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation.`,
+        `- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation.`,
     },
   ],
   certifications: [
