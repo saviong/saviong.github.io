@@ -53,13 +53,14 @@ export const CareerPath = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            // 3. This handles the layout: vertical on mobile, horizontal on larger screens
+            // This handles the layout: vertical on mobile, horizontal on larger screens
             className="mt-6 flex flex-col items-center gap-4 md:flex-row md:gap-2"
         >
             {careerPathData.map((item, index) => (
                 <React.Fragment key={item.title}>
                     {/* The career stage item */}
-                    <motion.div variants={itemVariants} className="flex flex-col items-center text-center p-4 rounded-lg">
+                    {/* CHANGE IS HERE: Added w-64 to give the text more width */}
+                    <motion.div variants={itemVariants} className="flex w-64 flex-col items-center text-center p-4 rounded-lg">
                         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted mb-3">
                             {item.icon}
                         </div>
