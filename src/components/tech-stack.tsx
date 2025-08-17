@@ -1,3 +1,5 @@
+// src/components/tech-stack.tsx
+
 "use client";
 
 import { useRef, useState } from "react";
@@ -17,20 +19,24 @@ interface TechCategory {
     items: TechItem[];
 }
 
+// Data updated with new icons and links
 const techCategories: TechCategory[] = [
     {
         category: "Cloud Platforms",
         items: [
             { name: "Azure", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
-            { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
+            // 3. AWS icon link updated
+            { name: "AWS", logo: "https://img.icons8.com/?size=512&id=wU62u24brJ44&format=png" },
         ],
     },
     {
         category: "Infrastructure as Code & Automation",
         items: [
             { name: "Terraform", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" },
-            { name: "Bicep", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bicep/bicep-original.svg" },
-            { name: "CloudFormation", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original.svg" },
+            // 5. Bicep icon link updated
+            { name: "Bicep", logo: "https://ms-azuretools.gallerycdn.vsassets.io/extensions/ms-azuretools/visualstudiobicep/0.37.4.10188/1754066855772/Microsoft.VisualStudio.Services.Icons.Default" },
+            // 4. CloudFormation icon link updated
+            { name: "CloudFormation", logo: "https://images.icon-icons.com/2699/PNG/512/amazon_cloudformation_logo_icon_169610.png" },
             { name: "GitHub Actions", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" },
         ],
     },
@@ -51,6 +57,15 @@ const techCategories: TechCategory[] = [
             { name: "PowerShell", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/powershell/powershell-original.svg" },
         ],
     },
+    // 2. New category added for Frontend technologies
+    {
+        category: "Frontend & Version Control",
+        items: [
+            { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+            { name: "Framer Motion", logo: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg" },
+            { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+        ]
+    }
 ];
 
 // Flatten all items for the scrolling marquee
@@ -64,7 +79,8 @@ const TechItemDisplay = ({ tech, showName = false }: { tech: TechItem; showName?
                     src={tech.logo}
                     alt={`${tech.name} logo`}
                     fill
-                    className="object-contain filter grayscale transition-all duration-300 group-hover:grayscale-0"
+                    // 1. Grayscale classes removed to make icons colorful
+                    className="object-contain filter transition-all duration-300"
                     unoptimized
                 />
             </div>
