@@ -86,7 +86,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       href: "https://www.medifast.com.hk/en/",
       badges: [],
       location: "Hong Kong",
-      title: "Senior Business Development Officer / Business Development Officer",
+      title: "Senior Business Development Officer\nBusiness Development Officer",
       logoUrl: "/medifasthk.jpeg",
       start: "September 2017",
       end: "May 2021",
@@ -115,8 +115,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
 **Sales Executive at World Ways Co. (HK) Ltd.**
 **Laboratory Technician at ASB Biodiesel**
 
-- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation.
-- Sales position at DKSH and World Ways Co. (HK) Ltd.`,
+- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation.`,
     },
   ],
   certifications: [
@@ -125,21 +124,21 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       href: "https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/",
       title: "AZ-104 Microsoft Certified: Azure Administrator Associate",
       logoUrl: "https://images.credly.com/size/340x340/images/336eebfc-0ac3-4553-9a67-b402f491f185/azure-administrator-associate-600x600.png",
-      year: "2024",
+      year: "",
     },
     {
       issuer: "Scrum.org",
       href: "https://www.scrum.org/professional-scrum-master-i-certification",
       title: "Professional Scrum Master™ I (PSM I)",
       logoUrl: "https://scrumorg-website-prod.s3.amazonaws.com/drupal/inline-images/2022-09/asset_44psmi_0.png",
-      year: "2024",
+      year: "",
     },
     {
       issuer: "Atlassian",
       href: "https://university.atlassian.com/student/collection/831206-agile-project-management-professional-certificate",
       title: "Atlassian Agile Project Management Professional Certificate",
       logoUrl: "https://wac-cdn.atlassian.com/dam/jcr:9c4bf443-5045-4ff9-a48d-36ae466f3ced/logos-atlassian-mini-icon-onecolor-blue.svg?cdnVersion=2903",
-      year: "2024",
+      year: "",
     },
   ],
   education: [
