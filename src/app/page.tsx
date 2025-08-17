@@ -50,7 +50,18 @@ export default function Page() {
         </div>
       </section>
       <section id="career-path">
-        <CareerPath />
+        <div className="w-full py-12">
+          <BlurFade delay={BLUR_FADE_DELAY * 5}>
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  Chemist turned Cloud Engineer
+                </h2>
+              </div>
+            </div>
+          </BlurFade>
+          <CareerPath />
+        </div>
       </section>
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
