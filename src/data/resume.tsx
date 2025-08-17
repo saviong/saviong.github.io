@@ -76,7 +76,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       end: "May 2021",
       description:
         `
-        **Senior Business Development Officer**
+**Senior Business Development Officer**
 - Engineered an automation solution using VBA to streamline administrative workflows, eliminating 80% of manual task time.
 - Mentored a team of three, improving team productivity by 20% through enhanced training and collaborative processes.
 - Utilised data from multiple sources to define customer profiles, improving the effectiveness of marketing strategies by 20%.
