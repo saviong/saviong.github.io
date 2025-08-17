@@ -153,7 +153,7 @@ export default function Page() {
                   Check out my latest work
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  I enjoy building solutions that are scalable, automated, and efficient. Here are a few examples of how I apply these concepts in my work.
+                  I build scalable, automated, and efficient solutions. The following projects demonstrate how I apply these concepts.
                 </p>
               </div>
             </div>
@@ -194,7 +194,7 @@ export default function Page() {
                   On My Bookshelf
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  A selection of books that I&apos;ve found insightful or have significantly influenced my perspective on technology, leadership, and society.
+                  A selection of insightful books that have influenced my perspective on technology, leadership, and society.
                 </p>
               </div>
             </div>
