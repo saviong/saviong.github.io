@@ -136,7 +136,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       href: "https://www.tum.de/",
       degree: "Summer Exchange, Nanoscience and Nanotechnology",
       logoUrl: "/tum.svg",
-      start: "",
+      start: "2012",
       end: "2012",
     },
   ],

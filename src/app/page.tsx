@@ -10,6 +10,7 @@ import Markdown from "react-markdown";
 import { BookCard } from "@/components/book-card";
 import { TechStack } from "@/components/tech-stack";
 import { CareerPath } from "@/components/career-path";
+import { WorldMap } from "@/components/world-map";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -220,7 +221,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-
+      <WorldMap />
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
