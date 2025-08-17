@@ -8,7 +8,7 @@ export const DATA = {
   location: "London, UK",
   locationLink: "http://googleusercontent.com/maps/google.com/1",
   description:
-    "A results-driven chemist transitioning into Cloud and DevOps.",
+    "",
   summary:
     `My fascination with tech started early. Long before I had a formal job, I was the kid in Hong Kong hosting simple web games in PHP and CGI just for the fun of it. That love for building things and solving puzzles has been a constant thread throughout my life.
 
