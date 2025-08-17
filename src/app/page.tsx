@@ -8,6 +8,7 @@ import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import { BookCard } from "@/components/book-card";
+import { TechStack } from "@/components/tech-stack";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -127,6 +128,7 @@ export default function Page() {
           ))}
         </div>
       </section>
+      <TechStack />
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
