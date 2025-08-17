@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
+import { HomeIcon, NotebookIcon, FileUser } from "lucide-react";
 
 export const DATA = {
   name: "Savio Ng",
@@ -37,6 +37,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "https://mycv.saviong.com", icon: FileUser, label: "Resume" },
   ],
   contact: {
     email: "yeungson@gmail.com",
