@@ -9,6 +9,7 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import { BookCard } from "@/components/book-card";
 import { TechStack } from "@/components/tech-stack";
+import { CareerPath } from "@/components/career-path";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -32,11 +33,7 @@ export default function Page() {
                 text={`I'm Ng Chung Yeung (吳仲洋). In Cantonese, "Ng" (like the 'ng' in song), "Chung" (ch-uh-ng), "Yeung" (sounds like 'young'). 
                 My English and Christian name is Savio.`}
               />
-              <BlurFadeText
-                className="max-w-[600px] md:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
+              <CareerPath />
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
