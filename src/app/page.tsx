@@ -33,7 +33,11 @@ export default function Page() {
                 text={`I'm Ng Chung Yeung (吳仲洋). In Cantonese, "Ng" (like the 'ng' in song), "Chung" (ch-uh-ng), "Yeung" (sounds like 'young'). 
                 My English and Christian name is Savio.`}
               />
-              <CareerPath />
+              <BlurFadeText
+                className="max-w-[600px] md:text-xl"
+                delay={BLUR_FADE_DELAY}
+                text={DATA.description}
+              />
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
@@ -43,6 +47,9 @@ export default function Page() {
             </BlurFade>
           </div>
         </div>
+      </section>
+      <section id="career-path">
+        <CareerPath />
       </section>
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
