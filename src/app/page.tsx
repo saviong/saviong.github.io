@@ -54,7 +54,6 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                {/* The font size class has been changed here */}
                 <h2 className="text-xl font-bold">
                   Chemist turned Cloud Engineer
                 </h2>
