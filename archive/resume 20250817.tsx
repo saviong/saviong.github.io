@@ -6,9 +6,9 @@ export const DATA = {
   initials: "SN",
   url: "https://saviong.github.io",
   location: "London, UK",
-  locationLink: "http://googleusercontent.com/maps/google.com/1",
+  locationLink: "https://www.google.com/maps/place/London",
   description:
-    "A results-driven chemist transitioning into Cloud and DevOps.",
+    "A results-driven chemist transitioning into Cloud and DevOps, holding Microsoft Certified: Azure Administrator (AZ-104) and Professional Scrum Master (PSM I) certifications.",
   summary:
     `My fascination with tech started early. Long before I had a formal job, I was the kid in Hong Kong hosting simple web games in PHP and CGI just for the fun of it. That love for building things and solving puzzles has been a constant thread throughout my life.
 
@@ -83,63 +83,45 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     },
     {
       company: "MediFast (Hong Kong) Ltd.",
-      href: "https://www.medifast.com.hk/en/",
       badges: [],
+      href: "https://www.medifast.com.hk/en/",
       location: "Hong Kong",
-      title: "Senior Business Development Officer / Business Development Officer",
+      title: "Senior Business Development Officer",
       logoUrl: "/medifasthk.jpeg",
-      start: "September 2017",
+      start: "August 2020",
       end: "May 2021",
       description:
-        `**Senior Business Development Officer**
-- Engineered an automation solution using VBA to streamline administrative workflows, eliminating 80% of manual task time.
+        `- Engineered an automation solution using VBA to streamline administrative workflows, eliminating 80% of manual task time.
 - Mentored a team of three, improving team productivity by 20% through enhanced training and collaborative processes.
-- Utilised data from multiple sources to define customer profiles, improving the effectiveness of marketing strategies by 20%.
-
-**Business Development Officer**
-- Analysed multi-source customer data to identify new market opportunities, driving a 20% increase in service adoption.
+- Utilised data from multiple sources to define customer profiles, improving the effectiveness of marketing strategies by 20%.`,
+    },
+    {
+      company: "MediFast (Hong Kong) Ltd.",
+      badges: [],
+      href: "https://www.medifast.com.hk/en/",
+      location: "Hong Kong",
+      title: "Business Development Officer",
+      logoUrl: "/medifasthk.jpeg",
+      start: "September 2017",
+      end: "July 2020",
+      description:
+        `- Analysed multi-source customer data to identify new market opportunities, driving a 20% increase in service adoption.
 - Translated complex client requirements into detailed service agreements, converting 85% of high-value corporate leads.
 - Coordinated logistics for large-scale service delivery projects, engaging over 500 participants and improving client satisfaction by 20%.`,
     },
     {
-      company: "Early Career Experience",
-      href: "#",
+      company: "Various Companies",
       badges: [],
+      href: "#",
       location: "Hong Kong",
-      title: "Previous Roles in Sales & Laboratory Services",
+      title: "Early Career Experience",
       logoUrl: "https://static.vecteezy.com/system/resources/previews/024/208/012/non_2x/simple-briefcase-icon-the-icon-can-be-used-for-websites-print-templates-presentation-templates-illustrations-etc-free-vector.jpg",
       start: "2013",
       end: "2017",
       description:
-        `**Medical Sales Representative at DKSH**
-**Sales Executive at World Ways Co. (HK) Ltd.**
-**Laboratory Technician at ASB Biodiesel**
-
-- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation.
-- Sales position at DKSH and World Ways Co. (HK) Ltd.`,
-    },
-  ],
-  certifications: [
-    {
-      issuer: "Microsoft",
-      href: "https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/",
-      title: "AZ-104 Microsoft Certified: Azure Administrator Associate",
-      logoUrl: "https://images.credly.com/size/340x340/images/336eebfc-0ac3-4553-9a67-b402f491f185/azure-administrator-associate-600x600.png",
-      year: "2024",
-    },
-    {
-      issuer: "Scrum.org",
-      href: "https://www.scrum.org/professional-scrum-master-i-certification",
-      title: "Professional Scrum Master™ I (PSM I)",
-      logoUrl: "https://scrumorg-website-prod.s3.amazonaws.com/drupal/inline-images/2022-09/asset_44psmi_0.png",
-      year: "2024",
-    },
-    {
-      issuer: "Atlassian",
-      href: "https://university.atlassian.com/student/collection/831206-agile-project-management-professional-certificate",
-      title: "Atlassian Agile Project Management Professional Certificate",
-      logoUrl: "https://wac-cdn.atlassian.com/dam/jcr:9c4bf443-5045-4ff9-a48d-36ae466f3ced/logos-atlassian-mini-icon-onecolor-blue.svg?cdnVersion=2903",
-      year: "2024",
+        `- Held progressive roles in business development, medical sales, and laboratory quality control, developing foundational skills in data analysis, stakeholder relations, and process documentation.
+- Sales position at DKSH and World Ways Co. (HK) Ltd.
+- Laboratory Technician, ASB-Biodiesel`,
     },
   ],
   education: [
