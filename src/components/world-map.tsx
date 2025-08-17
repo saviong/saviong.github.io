@@ -14,17 +14,40 @@ const geoUrl = "/world-countries.json";
 // Use 3-letter ISO 3166-1 alpha-3 codes. You can find them online.
 // =================================================================================
 const visitedCountries = [
-    "GBR", // United Kingdom
-    "DEU", // Germany
-    "HKG", // Hong Kong
-    // Add more country codes here
+    "JPN", "KOR", "SGP", "ESP", "PRT", "THA", "MYS", "CZE", "TWN",
+    "MAC", "VAT", "ITA", "FRA", "BEL", "NLD", "AUT", "CHE", "DNK",
+    "SWE", "NOR", "ARE", "CHN", "GBR" // Added United Kingdom from your previous data
 ];
 
 const countryData: { [key: string]: { name: string; category: string } } = {
+    // Asia
+    "JPN": { name: "Japan", category: "Asia" },
+    "KOR": { name: "South Korea", category: "Asia" },
+    "SGP": { name: "Singapore", category: "Asia" },
+    "THA": { name: "Thailand", category: "Asia" },
+    "MYS": { name: "Malaysia", category: "Asia" },
+    "TWN": { name: "Taiwan", category: "Asia" },
+    "MAC": { name: "Macau", category: "Asia" },
+    "CHN": { name: "China", category: "Asia" },
+
+    // Europe
+    "ESP": { name: "Spain", category: "Europe" },
+    "PRT": { name: "Portugal", category: "Europe" },
+    "CZE": { name: "Czech Republic", category: "Europe" },
+    "VAT": { name: "Vatican City", category: "Europe" },
+    "ITA": { name: "Italy", category: "Europe" },
+    "FRA": { name: "France", category: "Europe" },
+    "BEL": { name: "Belgium", category: "Europe" },
+    "NLD": { name: "Netherlands", category: "Europe" },
+    "AUT": { name: "Austria", category: "Europe" },
+    "CHE": { name: "Switzerland", category: "Europe" },
+    "DNK": { name: "Denmark", category: "Europe" },
+    "SWE": { name: "Sweden", category: "Europe" },
+    "NOR": { name: "Norway", category: "Europe" },
     "GBR": { name: "United Kingdom", category: "Europe" },
-    "DEU": { name: "Germany", category: "Europe" },
-    "HKG": { name: "Hong Kong", category: "Asia" },
-    // Make sure to add corresponding data for each country you list above
+
+    // Middle East
+    "ARE": { name: "United Arab Emirates", category: "Middle East" },
 };
 // =================================================================================
 
