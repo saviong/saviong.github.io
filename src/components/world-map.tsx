@@ -16,7 +16,7 @@ const geoUrl = "/world-countries.json";
 const visitedCountries = [
     "JPN", "KOR", "SGP", "ESP", "PRT", "THA", "MYS", "CZE", "TWN",
     "MAC", "VAT", "ITA", "FRA", "BEL", "NLD", "AUT", "CHE", "DNK",
-    "SWE", "NOR", "ARE", "CHN", "GBR" // Added United Kingdom from your previous data
+    "SWE", "NOR", "ARE", "CHN", "GBR", "DEU" // Added United Kingdom from your previous data
 ];
 
 const countryData: { [key: string]: { name: string; category: string } } = {
@@ -40,6 +40,7 @@ const countryData: { [key: string]: { name: string; category: string } } = {
     "BEL": { name: "Belgium", category: "Europe" },
     "NLD": { name: "Netherlands", category: "Europe" },
     "AUT": { name: "Austria", category: "Europe" },
+    "DEU": { name: "Germany", category: "Europe" },
     "CHE": { name: "Switzerland", category: "Europe" },
     "DNK": { name: "Denmark", category: "Europe" },
     "SWE": { name: "Sweden", category: "Europe" },
