@@ -10,13 +10,13 @@ export const DATA = {
   description:
     "",
   summary:
-    `My fascination with tech started early. Long before I had a formal job, I was the kid in Hong Kong hosting simple web games in PHP and CGI just for the fun of it. That love for building things and solving puzzles has been a constant thread throughout my life.
+    `My love for technology started long before I ever had a formal job. Growing up in Hong Kong, I was the kid who enjoyed creating simple web games in PHP and CGI just for fun. Building things, solving puzzles, and experimenting with ideas has always been part of who I am.
 
-My official journey began with a Chemistry degree in Hong Kong, but my world really opened up during an exchange semester in Germany at TUM. I fell in love with the culture, the food, and, of course, the beer. That experience, along with my travels, shaped how I see the world and the problems I want to solve.
+I originally studied Chemistry at university in Hong Kong, but everything changed during an exchange semester at TUM in Germany. That experience wasn’t only about academics. I discovered new perspectives through the culture, the food, and even the beer. Traveling and meeting people from different backgrounds opened my mind and shaped how I approach challenges today.
 
-Back in the professional world, I found myself instinctively looking for ways to improve processes. I started automating administrative tasks with VBA and later built workflows in Power Automate that saved my team hours of manual work every week. That was my lightbulb moment. I realized my true passion was using technology to make life easier and more efficient. This led me down the path of Cloud and DevOps, where I swapped the lab for a command line and dove into building scalable infrastructure with tools like Terraform and Bicep.
+When I entered the professional world, I naturally looked for ways to improve processes. I started automating tasks with VBA and later built workflows in Power Automate that saved my team hours of repetitive work. That was my turning point. I realized my passion was in using technology to simplify life and make things more efficient. Since then, I have focused on Cloud and DevOps, moving away from the lab bench and into building scalable infrastructure with tools like Terraform and Bicep.
 
-When I'm not in front of a screen, you can find me engaged in one of my many hobbies. I enjoy bringing ideas to life with my 3D printer, whether it's a useful gadget or a custom figure. I unwind by playing piano, keyboard, or guitar. Having grown up in Hong Kong, I have a deep love for the outdoors and spent many weekends hiking and camping. I'm also an avid gamer—whether on my Xbox and Switch or firing up some retro classics—and I love to cook.`,
+Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it is a useful gadget or a custom design. Music is also a big part of my life. I play piano, keyboard, and guitar, which helps me relax and express creativity in a different way. I also enjoy hiking and camping, something that grew from weekends outdoors in Hong Kong. On quieter days, I like gaming on my Xbox, Switch, or even revisiting some retro classics. Cooking is another way I unwind and explore creativity.`,
   avatarUrl: "/me.png",
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -141,6 +141,31 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
     },
   ],
   projects: [
+    {
+      title: "Cheminformatics ML App with Docker",
+      href: "https://github.com/saviong/molecular-property-predictor",
+      dates: "Aug 2025",
+      active: true,
+      description:
+        `Built a full-stack cheminformatics Python app with a Scikit-learn model and containerized the entire ML pipeline using Docker to create a reproducible, portable prediction tool.`,
+      technologies: [
+        "Python",
+        "Scikit-learn",
+        "Docker",
+        "Streamlit",
+        "RDKit",
+        "Machine Learning",
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/saviong/molecular-property-predictor",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "",
+      video: "",
+    },
     {
       title: "Serverless Portfolio with CI/CD on Azure",
       href: "https://github.com/saviong/html-resume-frontend/",
