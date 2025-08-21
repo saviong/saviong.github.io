@@ -1,7 +1,3 @@
-// src/components/project-card.tsx
-
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -14,8 +10,6 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 interface Props {
   title: string;
@@ -26,7 +20,6 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
-  images?: readonly string[];
   links?: readonly {
     icon: React.ReactNode;
     type: string;
@@ -44,116 +37,80 @@ export function ProjectCard({
   link,
   image,
   video,
-  images,
   links,
   className,
 }: Props) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    if (images && images.length > 1) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 5000);
-
-      return () => clearInterval(interval);
-    }
-  }, [images]);
-
   return (
     <Card
-      className={cn(
-        // THIS IS THE FIX: 'isolate' creates a new stacking context
-        "isolate flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full",
-        className
-      )}
+      className={
+        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
+      }
     >
-      <div className="relative h-40 w-full">
-        {/* The Link now acts as an overlay for better click handling */}
-        <Link href={href || "#"} className="absolute inset-0 z-20" />
-
-        {/* Media Content */}
-        {images && images.length > 0 ? (
-          <AnimatePresence>
-            <motion.div
-              key={currentImageIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute inset-0 z-10"
-            >
-              <Image
-                src={images[currentImageIndex]}
-                alt={`${title} screenshot ${currentImageIndex + 1}`}
-                fill
-                className="object-cover object-top"
-              />
-            </motion.div>
-          </AnimatePresence>
-        ) : video ? (
+      <Link
+        href={href || "#"}
+        className={cn("block cursor-pointer", className)}
+      >
+        {video && (
           <video
             src={video}
             autoPlay
             loop
             muted
             playsInline
-            className="pointer-events-none absolute h-full w-full object-cover object-top"
+            className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
           />
-        ) : image ? (
+        )}
+        {image && (
           <Image
             src={image}
             alt={title}
-            fill
-            className="absolute h-full w-full object-cover object-top"
+            width={500}
+            height={300}
+            className="h-40 w-full overflow-hidden object-cover object-top"
           />
-        ) : (
-          <div className="h-full w-full bg-muted" />
         )}
-      </div>
-      <div className="flex flex-col flex-grow p-2">
-        <CardHeader>
-          <div className="space-y-1">
-            <CardTitle className="mt-1 text-base">{title}</CardTitle>
-            <time className="font-sans text-xs">{dates}</time>
-            <div className="hidden font-sans text-xs underline print:visible">
-              {link?.replace("https://", "").replace("www.", "").replace("/", "")}
-            </div>
-            <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
-              {description}
-            </Markdown>
+      </Link>
+      <CardHeader className="px-2">
+        <div className="space-y-1">
+          <CardTitle className="mt-1 text-base">{title}</CardTitle>
+          <time className="font-sans text-xs">{dates}</time>
+          <div className="hidden font-sans text-xs underline print:visible">
+            {link?.replace("https://", "").replace("www.", "").replace("/", "")}
           </div>
-        </CardHeader>
-        <CardContent className="mt-auto flex flex-col">
-          {tags && tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1">
-              {tags?.map((tag) => (
-                <Badge
-                  className="px-1 py-0 text-[10px]"
-                  variant="secondary"
-                  key={tag}
-                >
-                  {tag}
+          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
+            {description}
+          </Markdown>
+        </div>
+      </CardHeader>
+      <CardContent className="mt-auto flex flex-col px-2">
+        {tags && tags.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {tags?.map((tag) => (
+              <Badge
+                className="px-1 py-0 text-[10px]"
+                variant="secondary"
+                key={tag}
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
+      </CardContent>
+      <CardFooter className="px-2 pb-2">
+        {links && links.length > 0 && (
+          <div className="flex flex-row flex-wrap items-start gap-1">
+            {links?.map((link, idx) => (
+              <Link href={link?.href} key={idx} target="_blank">
+                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
+                  {link.icon}
+                  {link.type}
                 </Badge>
-              ))}
-            </div>
-          )}
-        </CardContent>
-        <CardFooter>
-          {links && links.length > 0 && (
-            <div className="flex flex-row flex-wrap items-start gap-1">
-              {links?.map((link, idx) => (
-                <a href={link?.href} key={idx} target="_blank" rel="noopener noreferrer">
-                  <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
-                    {link.icon}
-                    {link.type}
-                  </Badge>
-                </a>
-              ))}
-            </div>
-          )}
-        </CardFooter>
-      </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </CardFooter>
     </Card>
   );
 }
