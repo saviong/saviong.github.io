@@ -26,7 +26,7 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
-  images?: readonly string[]; // Prop for the image array
+  images?: readonly string[];
   links?: readonly {
     icon: React.ReactNode;
     type: string;
@@ -50,12 +50,11 @@ export function ProjectCard({
 }: Props) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Effect for the automatic slideshow
   useEffect(() => {
     if (images && images.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 5000); // 5-second interval
+      }, 5000);
 
       return () => clearInterval(interval);
     }
@@ -63,98 +62,98 @@ export function ProjectCard({
 
   return (
     <Card
-      className={
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
-      }
+      className={cn(
+        // THIS IS THE FIX: 'isolate' creates a new stacking context
+        "isolate flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full",
+        className
+      )}
     >
-      {/* The media container is now inside the Link for better structure */}
-      <Link
-        href={href || "#"}
-        className={cn("block cursor-pointer", className)}
-      >
-        <div className="relative h-40 w-full overflow-hidden">
-          {/* CORRECTED LOGIC: Prioritizes slideshow and ensures visibility */}
-          {images && images.length > 0 ? (
-            <AnimatePresence>
-              <motion.div
-                key={currentImageIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0 z-10" // z-10 lifts the image above the background
-              >
-                <Image
-                  src={images[currentImageIndex]}
-                  alt={`${title} screenshot ${currentImageIndex + 1}`}
-                  fill
-                  className="object-cover object-top"
-                />
-              </motion.div>
-            </AnimatePresence>
-          ) : video ? (
-            <video
-              src={video}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="pointer-events-none absolute h-full w-full object-cover object-top"
-            />
-          ) : image ? (
-            <Image
-              src={image}
-              alt={title}
-              fill
-              className="absolute h-full w-full object-cover object-top"
-            />
-          ) : (
-            // Fallback to maintain card height even if there is no image
-            <div className="h-full w-full bg-muted" />
-          )}
-        </div>
-      </Link>
-      <CardHeader className="px-2">
-        <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">{title}</CardTitle>
-          <time className="font-sans text-xs">{dates}</time>
-          <div className="hidden font-sans text-xs underline print:visible">
-            {link?.replace("https://", "").replace("www.", "").replace("/", "")}
-          </div>
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
-            {description}
-          </Markdown>
-        </div>
-      </CardHeader>
-      <CardContent className="mt-auto flex flex-col px-2">
-        {tags && tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {tags?.map((tag) => (
-              <Badge
-                className="px-1 py-0 text-[10px]"
-                variant="secondary"
-                key={tag}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
+      <div className="relative h-40 w-full">
+        {/* The Link now acts as an overlay for better click handling */}
+        <Link href={href || "#"} className="absolute inset-0 z-20" />
+
+        {/* Media Content */}
+        {images && images.length > 0 ? (
+          <AnimatePresence>
+            <motion.div
+              key={currentImageIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0 z-10"
+            >
+              <Image
+                src={images[currentImageIndex]}
+                alt={`${title} screenshot ${currentImageIndex + 1}`}
+                fill
+                className="object-cover object-top"
+              />
+            </motion.div>
+          </AnimatePresence>
+        ) : video ? (
+          <video
+            src={video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="pointer-events-none absolute h-full w-full object-cover object-top"
+          />
+        ) : image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="absolute h-full w-full object-cover object-top"
+          />
+        ) : (
+          <div className="h-full w-full bg-muted" />
         )}
-      </CardContent>
-      <CardFooter className="px-2 pb-2">
-        {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link, idx) => (
-              <Link href={link?.href} key={idx} target="_blank">
-                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.icon}
-                  {link.type}
+      </div>
+      <div className="flex flex-col flex-grow p-2">
+        <CardHeader>
+          <div className="space-y-1">
+            <CardTitle className="mt-1 text-base">{title}</CardTitle>
+            <time className="font-sans text-xs">{dates}</time>
+            <div className="hidden font-sans text-xs underline print:visible">
+              {link?.replace("https://", "").replace("www.", "").replace("/", "")}
+            </div>
+            <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
+              {description}
+            </Markdown>
+          </div>
+        </CardHeader>
+        <CardContent className="mt-auto flex flex-col">
+          {tags && tags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {tags?.map((tag) => (
+                <Badge
+                  className="px-1 py-0 text-[10px]"
+                  variant="secondary"
+                  key={tag}
+                >
+                  {tag}
                 </Badge>
-              </Link>
-            ))}
-          </div>
-        )}
-      </CardFooter>
+              ))}
+            </div>
+          )}
+        </CardContent>
+        <CardFooter>
+          {links && links.length > 0 && (
+            <div className="flex flex-row flex-wrap items-start gap-1">
+              {links?.map((link, idx) => (
+                <a href={link?.href} key={idx} target="_blank" rel="noopener noreferrer">
+                  <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
+                    {link.icon}
+                    {link.type}
+                  </Badge>
+                </a>
+              ))}
+            </div>
+          )}
+        </CardFooter>
+      </div>
     </Card>
   );
 }
