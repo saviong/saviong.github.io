@@ -26,7 +26,7 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
-  images?: readonly string[];
+  images?: readonly string[]; // Prop for the image array
   links?: readonly {
     icon: React.ReactNode;
     type: string;
@@ -44,17 +44,18 @@ export function ProjectCard({
   link,
   image,
   video,
-  images,
+  images, // Destructure the new prop
   links,
   className,
 }: Props) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Effect for the automatic slideshow
   useEffect(() => {
     if (images && images.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 5000);
+      }, 5000); // 5-second interval
 
       return () => clearInterval(interval);
     }
@@ -66,48 +67,47 @@ export function ProjectCard({
         "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
       }
     >
+      {/* The entire media section is wrapped in a single Link */}
       <Link
         href={href || "#"}
-        className={cn("block cursor-pointer", className)}
+        className={cn("block cursor-pointer relative h-40 w-full overflow-hidden", className)}
       >
-        <div className="relative h-40 w-full overflow-hidden">
+        {/* CORRECTED LOGIC: Prioritize the slideshow */}
+        {images && images.length > 0 ? (
           <AnimatePresence>
-            {images && images.length > 0 ? (
-              <motion.div
-                key={currentImageIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-                // THIS IS THE FIX: Add z-10 to lift the image above the background
-                className="absolute inset-0 z-10"
-              >
-                <Image
-                  src={images[currentImageIndex]}
-                  alt={`${title} screenshot ${currentImageIndex + 1}`}
-                  fill
-                  className="object-cover object-top"
-                />
-              </motion.div>
-            ) : video ? (
-              <video
-                src={video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="pointer-events-none h-full w-full object-cover object-top"
-              />
-            ) : image ? (
+            <motion.div
+              key={currentImageIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0 z-10"
+            >
               <Image
-                src={image}
-                alt={title}
+                src={images[currentImageIndex]}
+                alt={`${title} screenshot ${currentImageIndex + 1}`}
                 fill
-                className="h-full w-full object-cover object-top"
+                className="object-cover object-top"
               />
-            ) : null}
+            </motion.div>
           </AnimatePresence>
-        </div>
+        ) : video ? (
+          <video
+            src={video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="pointer-events-none h-full w-full object-cover object-top"
+          />
+        ) : image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="h-full w-full object-cover object-top"
+          />
+        ) : null}
       </Link>
       <CardHeader className="px-2">
         <div className="space-y-1">
