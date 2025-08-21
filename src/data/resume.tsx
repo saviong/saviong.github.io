@@ -163,7 +163,7 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
           icon: <Icons.github className="size-3" />,
         },
       ],
-      images: "/mpp-1.PNG",
+      image: "/mpp-1.PNG",
       video: "",
     },
     {
