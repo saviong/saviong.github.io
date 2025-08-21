@@ -118,7 +118,7 @@ When I'm not in front of a screen, you can find me engaged in one of my many hob
       issuer: "Atlassian",
       href: "https://university.atlassian.com/student/collection/831206-agile-project-management-professional-certificate",
       title: "Atlassian Agile Project Management Professional Certificate",
-      logoUrl: "https://wac-cdn.atlassian.com/dam/jcr:9c4bf443-5045-4ff9-a48d-36ae466f3ced/logos-atlassian-mini-icon-onecolor-blue.svg?cdnVersion=2903",
+      logoUrl: "https://camo.githubusercontent.com/b97eaa6d1a4edc127545803f08dc9315e7e6132960e6fadc28f7d024161a97ee/68747470733a2f2f61746c61737369616e2e67616c6c65727963646e2e76736173736574732e696f2f657874656e73696f6e732f61746c61737369616e2f61746c6173636f64652f312e342e302f313535383132333132313437352f4d6963726f736f66742e56697375616c53747564696f2e53657276696365732e49636f6e732e44656661756c74",
       year: "",
     },
   ],
