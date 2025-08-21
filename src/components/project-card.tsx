@@ -44,7 +44,7 @@ export function ProjectCard({
   link,
   image,
   video,
-  images, // Destructure the new prop
+  images,
   links,
   className,
 }: Props) {
@@ -67,47 +67,52 @@ export function ProjectCard({
         "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
       }
     >
-      {/* The entire media section is wrapped in a single Link */}
+      {/* The media container is now inside the Link for better structure */}
       <Link
         href={href || "#"}
-        className={cn("block cursor-pointer relative h-40 w-full overflow-hidden", className)}
+        className={cn("block cursor-pointer", className)}
       >
-        {/* CORRECTED LOGIC: Prioritize the slideshow */}
-        {images && images.length > 0 ? (
-          <AnimatePresence>
-            <motion.div
-              key={currentImageIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute inset-0 z-10"
-            >
-              <Image
-                src={images[currentImageIndex]}
-                alt={`${title} screenshot ${currentImageIndex + 1}`}
-                fill
-                className="object-cover object-top"
-              />
-            </motion.div>
-          </AnimatePresence>
-        ) : video ? (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none h-full w-full object-cover object-top"
-          />
-        ) : image ? (
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="h-full w-full object-cover object-top"
-          />
-        ) : null}
+        <div className="relative h-40 w-full overflow-hidden">
+          {/* CORRECTED LOGIC: Prioritizes slideshow and ensures visibility */}
+          {images && images.length > 0 ? (
+            <AnimatePresence>
+              <motion.div
+                key={currentImageIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="absolute inset-0 z-10" // z-10 lifts the image above the background
+              >
+                <Image
+                  src={images[currentImageIndex]}
+                  alt={`${title} screenshot ${currentImageIndex + 1}`}
+                  fill
+                  className="object-cover object-top"
+                />
+              </motion.div>
+            </AnimatePresence>
+          ) : video ? (
+            <video
+              src={video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="pointer-events-none absolute h-full w-full object-cover object-top"
+            />
+          ) : image ? (
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="absolute h-full w-full object-cover object-top"
+            />
+          ) : (
+            // Fallback to maintain card height even if there is no image
+            <div className="h-full w-full bg-muted" />
+          )}
+        </div>
       </Link>
       <CardHeader className="px-2">
         <div className="space-y-1">
