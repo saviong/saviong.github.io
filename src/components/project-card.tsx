@@ -1,3 +1,7 @@
+// src/components/project-card.tsx
+
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -10,6 +14,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface Props {
   title: string;
@@ -20,6 +26,7 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
+  images?: readonly string[]; // Add new 'images' prop
   links?: readonly {
     icon: React.ReactNode;
     type: string;
@@ -37,9 +44,23 @@ export function ProjectCard({
   link,
   image,
   video,
+  images, // Destructure new prop
   links,
   className,
 }: Props) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // This effect handles the automatic slideshow
+  useEffect(() => {
+    if (images && images.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, 5000); // Change image every 5 seconds
+
+      return () => clearInterval(interval); // Clean up on component unmount
+    }
+  }, [images]);
+
   return (
     <Card
       className={
@@ -50,25 +71,47 @@ export function ProjectCard({
         href={href || "#"}
         className={cn("block cursor-pointer", className)}
       >
-        {video && (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
-          />
-        )}
-        {image && (
-          <Image
-            src={image}
-            alt={title}
-            width={500}
-            height={300}
-            className="h-40 w-full overflow-hidden object-cover object-top"
-          />
-        )}
+        {/* This is the updated media section */}
+        <div className="relative h-40 w-full overflow-hidden">
+          <AnimatePresence>
+            {images && images.length > 0 ? (
+              // Slideshow logic
+              <motion.div
+                key={currentImageIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={images[currentImageIndex]}
+                  alt={`${title} screenshot ${currentImageIndex + 1}`}
+                  fill
+                  className="object-cover object-top"
+                />
+              </motion.div>
+            ) : video ? (
+              // Video fallback
+              <video
+                src={video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="pointer-events-none h-full w-full object-cover object-top"
+              />
+            ) : image ? (
+              // Single image fallback
+              <Image
+                src={image}
+                alt={title}
+                fill
+                className="h-full w-full object-cover object-top"
+              />
+            ) : null}
+          </AnimatePresence>
+        </div>
       </Link>
       <CardHeader className="px-2">
         <div className="space-y-1">
