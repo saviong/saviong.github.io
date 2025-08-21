@@ -26,7 +26,7 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
-  images?: readonly string[]; // Add new 'images' prop
+  images?: readonly string[];
   links?: readonly {
     icon: React.ReactNode;
     type: string;
@@ -44,20 +44,19 @@ export function ProjectCard({
   link,
   image,
   video,
-  images, // Destructure new prop
+  images,
   links,
   className,
 }: Props) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // This effect handles the automatic slideshow
   useEffect(() => {
     if (images && images.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 5000); // Change image every 5 seconds
+      }, 5000);
 
-      return () => clearInterval(interval); // Clean up on component unmount
+      return () => clearInterval(interval);
     }
   }, [images]);
 
@@ -71,18 +70,17 @@ export function ProjectCard({
         href={href || "#"}
         className={cn("block cursor-pointer", className)}
       >
-        {/* This is the updated media section */}
         <div className="relative h-40 w-full overflow-hidden">
           <AnimatePresence>
             {images && images.length > 0 ? (
-              // Slideshow logic
               <motion.div
                 key={currentImageIndex}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0"
+                // THIS IS THE FIX: Add z-10 to lift the image above the background
+                className="absolute inset-0 z-10"
               >
                 <Image
                   src={images[currentImageIndex]}
@@ -92,7 +90,6 @@ export function ProjectCard({
                 />
               </motion.div>
             ) : video ? (
-              // Video fallback
               <video
                 src={video}
                 autoPlay
@@ -102,7 +99,6 @@ export function ProjectCard({
                 className="pointer-events-none h-full w-full object-cover object-top"
               />
             ) : image ? (
-              // Single image fallback
               <Image
                 src={image}
                 alt={title}
