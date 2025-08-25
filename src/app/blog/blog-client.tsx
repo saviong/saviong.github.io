@@ -24,9 +24,9 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
+    // 1. New state for the date filter
+    const [dateFilter, setDateFilter] = useState("All time");
 
-    // The useEffect is no longer needed for fetching, but we keep it in case
-    // you want to re-fetch or handle client-side updates in the future.
     useEffect(() => {
         setPosts(initialPosts);
     }, [initialPosts]);
@@ -37,8 +37,13 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
         return ["All", ...Array.from(new Set(allTags))];
     }, [posts]);
 
-    // Filter posts based on search term and selected category
+    // Filter posts based on search, category, and now date
     const filteredPosts = useMemo(() => {
+        const now = new Date();
+        const sevenDaysAgo = new Date(now.setDate(now.getDate() - 7));
+        now.setDate(now.getDate() + 7); // Reset date for the next calculation
+        const thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
+
         return posts
             .filter(
                 (post) =>
@@ -53,8 +58,22 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                 (post) =>
                     selectedCategory === "All" ||
                     (post.metadata.tags && post.metadata.tags.includes(selectedCategory))
-            );
-    }, [posts, searchTerm, selectedCategory]);
+            )
+            // 3. New date filtering logic
+            .filter((post) => {
+                if (dateFilter === "All time") {
+                    return true;
+                }
+                const postDate = new Date(post.metadata.publishedAt);
+                if (dateFilter === "Last 7 days") {
+                    return postDate >= sevenDaysAgo;
+                }
+                if (dateFilter === "Last 30 days") {
+                    return postDate >= thirtyDaysAgo;
+                }
+                return true;
+            });
+    }, [posts, searchTerm, selectedCategory, dateFilter]);
 
     return (
         <section>
@@ -75,17 +94,35 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
             </div>
 
             {/* Category Filter Buttons */}
-            <div className="flex flex-wrap gap-2 mb-12">
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+                <p className="text-sm font-medium mr-2">Categories:</p>
                 {categories.map((category) => (
                     <Button
                         key={category}
                         variant={selectedCategory === category ? "default" : "secondary"}
                         onClick={() => setSelectedCategory(category)}
+                        size="sm"
                     >
                         {category}
                     </Button>
                 ))}
             </div>
+
+            {/* 2. New UI for the Date Filter */}
+            <div className="flex flex-wrap items-center gap-2 mb-12">
+                <p className="text-sm font-medium mr-2">Date:</p>
+                {["All time", "Last 30 days", "Last 7 days"].map((filter) => (
+                    <Button
+                        key={filter}
+                        variant={dateFilter === filter ? "default" : "secondary"}
+                        onClick={() => setDateFilter(filter)}
+                        size="sm"
+                    >
+                        {filter}
+                    </Button>
+                ))}
+            </div>
+
 
             {/* Filtered Post List */}
             <div className="grid grid-cols-1 gap-8">
