@@ -1,0 +1,59 @@
+---
+title: "Building My New Portfolio: A Journey of Features and Fixes"
+publishedAt: "2025-08-25"
+summary: "A look back at the process of customizing my personal portfolio, detailing the new features I built and the interesting bugs I squashed along the way."
+tags:
+  - "React"
+  - "Next.js"
+  - "TypeScript"
+  - "Framer Motion"
+  - "Vercel"
+  - "Debugging"
+---
+
+This is the 2nd post on my new blog. For this one, I wanted to document the journey of building the very site you're reading this on. It started as a fork of a great template and quickly evolved into a personalized showcase of my journey into Cloud and DevOps.
+
+Here’s a summary of the custom features I built and some of the valuable lessons I learned from the bugs I encountered and solved.
+
+### New Features Added
+
+My goal was to create a site that was not just a static resume, but an interactive and engaging experience. Here are the key features I added:
+
+* **Animated Career Path:** I replaced the static intro text with a dynamic component built with Framer Motion that visually animates my career transition from Chemist to Sales and finally to Cloud & DevOps. It includes interactive hover effects to reveal more details about each stage.
+* **Interactive Tech Stack:** To better showcase my technical skills, I built a two-state component. It starts as an infinitely scrolling marquee of technology logos and, with a click, transforms into a detailed, categorized grid.
+* **Timeline Reading List:** Instead of a simple list, I created a custom component to display my recommended books in a clean, vertical timeline format, inspired by elegant publication layouts.
+* **Upgraded Blog Functionality:** The blog itself was enhanced with client-side search and category filtering to make it easier to navigate as I add more content. I also added a "Back to Top" button for better usability on longer pages.
+* **Image Slideshows:** For projects with multiple visuals, I implemented an automatic image slideshow within the project cards, using Framer Motion for smooth cross-fade transitions.
+
+### Challenges Faced & Lessons Learned
+
+Every development process has its hurdles. Here are a few of the most interesting bugs I encountered and how I fixed them:
+
+#### 1. The Server vs. Client Conundrum (`Module not found: Can't resolve 'fs'`)
+
+After adding interactive filters to the blog, the site failed to build on Vercel. The error was that the `fs` module, a Node.js library for file system access, could not be found.
+
+* **The Problem:** My blog page was a Client Component (`"use client";`), which runs in the browser. The `fs` module can only run on the server.
+* **The Solution:** I refactored the blog into two parts: a **Server Component** (`page.tsx`) that fetches all the post data from the file system at build time, and a **Client Component** (`blog-client.tsx`) that receives that data as a prop and handles all the interactive searching and filtering in the browser. This correctly separated the server-side and client-side logic.
+
+#### 2. The Case of the Invisible Images
+
+My project images were not showing up, especially in dark mode. The browser's developer tools showed no "404 Not Found" errors, which meant the images were loading but were not visible.
+
+* **The Problem:** This was a classic CSS stacking context issue. The card's dark background was being rendered on a higher "layer" than the image itself.
+* **The Solution:** I updated my main CSS file (`globals.css`) to add a `z-index` to the container holding the image. This explicitly lifted the image layer above the card's background layer, making it visible in all themes.
+
+#### 3. The "Refused to Connect" Mystery
+
+Clicking on external links, like my GitHub or LinkedIn profiles, would lead to a blank page with a "refused to connect" error.
+
+* **The Problem:** The site was using the Next.js `<Link>` component for all links. This component is designed for fast, internal, client-side navigation. For security reasons, external sites like GitHub refuse to be loaded inside another website's navigation context.
+* **The Solution:** I updated the components that render links (`navbar.tsx` and `resume-card.tsx`) to be smarter. They now check if a link is internal (starts with `/`) or external (starts with `http`). For external links, they now render a standard `<a>` tag with `target="_blank"`, telling the browser to open the link in a new tab, which resolved the issue.
+
+---
+
+This process of building and debugging was a fantastic learning experience that went far beyond the initial template. I hope this overview of the journey was insightful!
+
+---
+
+[← Back to Blog](/blog)
