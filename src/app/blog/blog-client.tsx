@@ -7,6 +7,15 @@ import { formatDate } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { DateRange } from "react-day-picker";
 
 // Define the type for a single blog post
 type Post = {
@@ -19,61 +28,49 @@ type Post = {
     };
 };
 
-// The component now accepts the posts as a prop
 export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
-    // 1. New state for the date filter
-    const [dateFilter, setDateFilter] = useState("All time");
+    const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
 
     useEffect(() => {
         setPosts(initialPosts);
     }, [initialPosts]);
 
-    // Calculate unique categories from the posts
     const categories = useMemo(() => {
         const allTags = posts.flatMap((post) => post.metadata.tags || []);
         return ["All", ...Array.from(new Set(allTags))];
     }, [posts]);
 
-    // Filter posts based on search, category, and now date
+    // Filter posts based on all criteria
     const filteredPosts = useMemo(() => {
-        const now = new Date();
-        const sevenDaysAgo = new Date(now.setDate(now.getDate() - 7));
-        now.setDate(now.getDate() + 7); // Reset date for the next calculation
-        const thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
-
         return posts
             .filter(
                 (post) =>
-                    post.metadata.title
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                    post.metadata.summary
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase())
+                    post.metadata.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    post.metadata.summary.toLowerCase().includes(searchTerm.toLowerCase())
             )
             .filter(
                 (post) =>
                     selectedCategory === "All" ||
                     (post.metadata.tags && post.metadata.tags.includes(selectedCategory))
             )
-            // 3. New date filtering logic
             .filter((post) => {
-                if (dateFilter === "All time") {
-                    return true;
-                }
+                if (!dateRange?.from) return true;
                 const postDate = new Date(post.metadata.publishedAt);
-                if (dateFilter === "Last 7 days") {
-                    return postDate >= sevenDaysAgo;
+                const fromDate = new Date(dateRange.from);
+                fromDate.setHours(0, 0, 0, 0); // Start of the day
+
+                if (dateRange.to) {
+                    const toDate = new Date(dateRange.to);
+                    toDate.setHours(23, 59, 59, 999); // End of the day
+                    return postDate >= fromDate && postDate <= toDate;
                 }
-                if (dateFilter === "Last 30 days") {
-                    return postDate >= thirtyDaysAgo;
-                }
-                return true;
+                // If only a start date is selected, filter from that day onwards
+                return postDate >= fromDate;
             });
-    }, [posts, searchTerm, selectedCategory, dateFilter]);
+    }, [posts, searchTerm, selectedCategory, dateRange]);
 
     return (
         <section>
@@ -82,8 +79,8 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                 My thoughts on software development, life, and more.
             </p>
 
-            {/* Search Input */}
-            <div className="mb-8">
+            {/* Search and Filter Controls */}
+            <div className="flex flex-wrap items-center gap-4 mb-12">
                 <Input
                     type="text"
                     placeholder="Search posts..."
@@ -91,38 +88,31 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="max-w-sm"
                 />
-            </div>
 
-            {/* Category Filter Buttons */}
-            <div className="flex flex-wrap items-center gap-2 mb-4">
-                <p className="text-sm font-medium mr-2">Categories:</p>
-                {categories.map((category) => (
-                    <Button
-                        key={category}
-                        variant={selectedCategory === category ? "default" : "secondary"}
-                        onClick={() => setSelectedCategory(category)}
-                        size="sm"
-                    >
-                        {category}
-                    </Button>
-                ))}
-            </div>
+                {/* Category Dropdown */}
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline">
+                            Category: {selectedCategory}
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuRadioGroup
+                            value={selectedCategory}
+                            onValueChange={setSelectedCategory}
+                        >
+                            {categories.map((category) => (
+                                <DropdownMenuRadioItem key={category} value={category}>
+                                    {category}
+                                </DropdownMenuRadioItem>
+                            ))}
+                        </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                </DropdownMenu>
 
-            {/* 2. New UI for the Date Filter */}
-            <div className="flex flex-wrap items-center gap-2 mb-12">
-                <p className="text-sm font-medium mr-2">Date:</p>
-                {["All time", "Last 30 days", "Last 7 days"].map((filter) => (
-                    <Button
-                        key={filter}
-                        variant={dateFilter === filter ? "default" : "secondary"}
-                        onClick={() => setDateFilter(filter)}
-                        size="sm"
-                    >
-                        {filter}
-                    </Button>
-                ))}
+                {/* Date Range Picker */}
+                <DateRangePicker date={dateRange} setDate={setDateRange} />
             </div>
-
 
             {/* Filtered Post List */}
             <div className="grid grid-cols-1 gap-8">
