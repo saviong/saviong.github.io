@@ -85,7 +85,7 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
             </p>
 
             {/* Search and Filter Controls */}
-            <div className="flex flex-col gap-4 mb-12 min-h-[110px]">
+            <div className="space-y-4 mb-12">
                 <div className="flex flex-wrap items-center gap-4">
                     <Input
                         type="text"
