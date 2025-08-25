@@ -84,9 +84,8 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                 My thoughts on software development, life, and more.
             </p>
 
-            {/* Search and Filter Controls */}
-            <div className="space-y-4 mb-12">
-                <div className="flex flex-wrap items-center gap-4">
+            <div className="h-24 mb-12">
+                <div className="flex flex-wrap items-center gap-4 mb-4">
                     <Input
                         type="text"
                         placeholder="Search posts..."
@@ -116,7 +115,6 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                     </DropdownMenu>
                 </div>
 
-                {/* New, simpler date filter UI */}
                 <div className="flex flex-wrap items-center gap-2">
                     <div className="flex items-center gap-2">
                         <label htmlFor="start-date" className="text-sm text-muted-foreground">From:</label>
