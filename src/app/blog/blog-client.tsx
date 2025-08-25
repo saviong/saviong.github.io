@@ -146,7 +146,7 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
         <section>
             <h1 className="font-bold text-3xl mb-4 tracking-tighter">Blog</h1>
             <p className="text-muted-foreground mb-8">
-                My thoughts on software development, life, and more.
+                My thoughts on cloud & software development, life, and more.
             </p>
 
             <div className="mb-12 space-y-4">
