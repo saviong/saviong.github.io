@@ -8,12 +8,13 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
+// This type now matches the one used in your client component
 type Metadata = {
   title: string;
   publishedAt: string;
   summary: string;
   image?: string;
-  tags?: string[];[cite_start]
+  tags?: string[];
 };
 
 function getMDXFiles(dir: string) {
@@ -26,7 +27,6 @@ export async function markdownToHTML(markdown: string) {
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypePrettyCode, {
-      // https://rehype-pretty.pages.dev/#usage
       theme: {
         light: "min-light",
         dark: "min-dark",
@@ -42,8 +42,12 @@ export async function markdownToHTML(markdown: string) {
 export async function getPost(slug: string) {
   const filePath = path.join("content", `${slug}.mdx`);
   let source = fs.readFileSync(filePath, "utf-8");
-  const { content: rawContent, data: metadata } = matter(source);
+  const { content: rawContent, data } = matter(source);
+
+  // We cast the data to our specific Metadata type
+  const metadata = data as Metadata;
   const content = await markdownToHTML(rawContent);
+
   return {
     source: content,
     metadata,

@@ -7,7 +7,6 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
-  // This function now runs on the server
   const posts = await getBlogPosts();
 
   return <BlogClient initialPosts={posts} />;
