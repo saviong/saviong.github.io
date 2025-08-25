@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import { BackToTopButton } from "@/components/back-to-top";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -67,6 +68,21 @@ export default function RootLayout({
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>
+        export default function RootLayout({children}: {children: React.ReactNode }) {
+  return (
+        <html lang="en" suppressHydrationWarning>
+          <body>
+            <ThemeProvider attribute="class" defaultTheme="light">
+              <TooltipProvider delayDuration={0}>
+                {children}
+                <Navbar />
+                <BackToTopButton /> {/* Add this line */}
+              </TooltipProvider>
+            </ThemeProvider>
+          </body>
+        </html>
+        );
+}
       </body>
     </html>
   );

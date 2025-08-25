@@ -4,6 +4,7 @@ import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { Badge } from "@/components/ui/badge"; // Import the Badge component
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -18,6 +19,10 @@ export async function generateMetadata({
   };
 }): Promise<Metadata | undefined> {
   let post = await getPost(params.slug);
+
+  if (!post) {
+    return;
+  }
 
   let {
     title,
@@ -88,20 +93,35 @@ export default async function Blog({
           }),
         }}
       />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+
+      {/* --- UPDATED LAYOUT STARTS HERE --- */}
+
+      <h1 className="title font-bold text-3xl tracking-tighter max-w-[650px]">
         {post.metadata.title}
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+      <div className="flex justify-between items-center mt-2 mb-4 text-sm max-w-[650px]">
         <Suspense fallback={<p className="h-5" />}>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          <p className="text-sm text-muted-foreground">
             {formatDate(post.metadata.publishedAt)}
           </p>
         </Suspense>
       </div>
+
+      {/* New Tags Section */}
+      {post.metadata.tags && post.metadata.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-8">
+          {post.metadata.tags.map((tag: string) => (
+            <Badge key={tag} variant="secondary">{tag}</Badge>
+          ))}
+        </div>
+      )}
+
       <article
         className="prose dark:prose-invert"
         dangerouslySetInnerHTML={{ __html: post.source }}
       ></article>
+
+      {/* --- UPDATED LAYOUT ENDS HERE --- */}
     </section>
   );
 }
