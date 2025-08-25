@@ -14,8 +14,6 @@ import {
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DateRangePicker } from "@/components/ui/date-range-picker";
-import { DateRange } from "react-day-picker";
 import { X } from "lucide-react";
 
 // Define the type for a single blog post
@@ -33,8 +31,9 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
-    const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
-    const [activeDatePreset, setActiveDatePreset] = useState<string | null>(null);
+    // State is now two simple strings for the date inputs
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
 
     useEffect(() => {
         setPosts(initialPosts);
@@ -45,7 +44,7 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
         return ["All", ...Array.from(new Set(allTags))];
     }, [posts]);
 
-    // Filter posts based on all criteria
+    // Updated filtering logic for the new date inputs
     const filteredPosts = useMemo(() => {
         return posts
             .filter(
@@ -59,60 +58,24 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                     (post.metadata.tags && post.metadata.tags.includes(selectedCategory))
             )
             .filter((post) => {
-                if (!dateRange?.from) return true;
                 const postDate = new Date(post.metadata.publishedAt);
-                const fromDate = new Date(dateRange.from);
-                fromDate.setHours(0, 0, 0, 0); // Start of the day
-
-                if (dateRange.to) {
-                    const toDate = new Date(dateRange.to);
-                    toDate.setHours(23, 59, 59, 999); // End of the day
-                    return postDate >= fromDate && postDate <= toDate;
+                if (startDate) {
+                    const fromDate = new Date(startDate);
+                    if (postDate < fromDate) return false;
                 }
-                // If only a start date is selected, filter from that day onwards
-                return postDate >= fromDate;
+                if (endDate) {
+                    const toDate = new Date(endDate);
+                    if (postDate > toDate) return false;
+                }
+                return true;
             });
-    }, [posts, searchTerm, selectedCategory, dateRange]);
-
-    // Handler for preset date buttons
-    const handleDatePreset = (preset: string) => {
-        const now = new Date();
-        let fromDate: Date;
-
-        setActiveDatePreset(preset);
-
-        switch (preset) {
-            case 'Last 7 days':
-                fromDate = new Date();
-                fromDate.setDate(now.getDate() - 7);
-                break;
-            case 'Last 30 days':
-                fromDate = new Date();
-                fromDate.setMonth(now.getMonth() - 1);
-                break;
-            case 'Last year':
-                fromDate = new Date();
-                fromDate.setFullYear(now.getFullYear() - 1);
-                break;
-            default:
-                return;
-        }
-        setDateRange({ from: fromDate, to: new Date() });
-    };
+    }, [posts, searchTerm, selectedCategory, startDate, endDate]);
 
     // Handler to clear date filters
     const clearDateFilter = () => {
-        setDateRange(undefined);
-        setActiveDatePreset(null);
+        setStartDate("");
+        setEndDate("");
     }
-
-    // When a custom date range is selected via the picker, clear the active preset button
-    useEffect(() => {
-        if (dateRange) {
-            setActiveDatePreset(null);
-        }
-    }, [dateRange]);
-
 
     return (
         <section>
@@ -132,7 +95,6 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                         className="max-w-sm"
                     />
 
-                    {/* Category Dropdown */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline">
@@ -154,27 +116,35 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                     </DropdownMenu>
                 </div>
 
-                {/* Date Filters */}
+                {/* New, simpler date filter UI */}
                 <div className="flex flex-wrap items-center gap-2">
-                    {['Last 7 days', 'Last 30 days', 'Last year'].map(preset => (
-                        <Button
-                            key={preset}
-                            variant={activeDatePreset === preset ? 'default' : 'secondary'}
-                            onClick={() => handleDatePreset(preset)}
-                            size="sm"
-                        >
-                            {preset}
-                        </Button>
-                    ))}
-                    <DateRangePicker date={dateRange} setDate={setDateRange} />
-                    {dateRange && (
+                    <div className="flex items-center gap-2">
+                        <label htmlFor="start-date" className="text-sm text-muted-foreground">From:</label>
+                        <Input
+                            id="start-date"
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="w-auto"
+                        />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <label htmlFor="end-date" className="text-sm text-muted-foreground">To:</label>
+                        <Input
+                            id="end-date"
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="w-auto"
+                        />
+                    </div>
+                    {(startDate || endDate) && (
                         <Button variant="ghost" size="icon" onClick={clearDateFilter} aria-label="Clear date filter">
                             <X className="h-4 w-4" />
                         </Button>
                     )}
                 </div>
             </div>
-
 
             {/* Filtered Post List */}
             <div className="grid grid-cols-1 gap-8">
