@@ -6,15 +6,8 @@ import { Input } from "@/components/ui/input";
 import { formatDate } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { X, ChevronDown } from "lucide-react";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { X, ChevronDown, Check } from "lucide-react";
 
 // Define the type for a single blog post
 type Post = {
@@ -27,13 +20,87 @@ type Post = {
     };
 };
 
+// Custom Dropdown Component
+const CategoryDropdown = ({
+    categories,
+    selectedCategory,
+    onSelect
+}: {
+    categories: string[],
+    selectedCategory: string,
+    onSelect: (category: string) => void
+}) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const handleSelect = (category: string) => {
+        onSelect(category);
+        setIsOpen(false);
+    };
+
+    return (
+        <div className="relative" ref={dropdownRef}>
+            <Button
+                variant="outline"
+                onClick={() => setIsOpen(!isOpen)}
+                className="min-w-[160px] justify-between"
+            >
+                Category: {selectedCategory}
+                <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                        }`}
+                />
+            </Button>
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full left-0 mt-2 w-[200px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 py-1 max-h-[300px] overflow-y-auto"
+                    >
+                        {categories.map((category) => (
+                            <button
+                                key={category}
+                                onClick={() => handleSelect(category)}
+                                className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between ${selectedCategory === category
+                                    ? "bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-100"
+                                    : ""
+                                    }`}
+                            >
+                                <span>{category}</span>
+                                {selectedCategory === category && (
+                                    <Check className="h-4 w-4" />
+                                )}
+                            </button>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+};
+
 export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         setPosts(initialPosts);
@@ -75,13 +142,8 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
         setEndDate("");
     };
 
-    const handleCategorySelect = (category: string) => {
-        setSelectedCategory(category);
-        setIsDropdownOpen(false);
-    };
-
     return (
-        <section className="relative">
+        <section>
             <h1 className="font-bold text-3xl mb-4 tracking-tighter">Blog</h1>
             <p className="text-muted-foreground mb-8">
                 My thoughts on software development, life, and more.
@@ -98,46 +160,11 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                         className="max-w-sm"
                     />
 
-                    <div className="relative">
-                        <DropdownMenu
-                            open={isDropdownOpen}
-                            onOpenChange={setIsDropdownOpen}
-                        >
-                            <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className="min-w-[160px] justify-between"
-                                >
-                                    Category: {selectedCategory}
-                                    <ChevronDown
-                                        className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""
-                                            }`}
-                                    />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent
-                                align="start"
-                                className="w-[200px]"
-                                side="bottom"
-                                sideOffset={8}
-                            >
-                                <DropdownMenuRadioGroup
-                                    value={selectedCategory}
-                                    onValueChange={handleCategorySelect}
-                                >
-                                    {categories.map((category) => (
-                                        <DropdownMenuRadioItem
-                                            key={category}
-                                            value={category}
-                                            className="cursor-pointer"
-                                        >
-                                            {category}
-                                        </DropdownMenuRadioItem>
-                                    ))}
-                                </DropdownMenuRadioGroup>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
+                    <CategoryDropdown
+                        categories={categories}
+                        selectedCategory={selectedCategory}
+                        onSelect={setSelectedCategory}
+                    />
                 </div>
 
                 {/* Second row of filters */}
