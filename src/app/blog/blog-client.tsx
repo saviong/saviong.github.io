@@ -14,7 +14,7 @@ import {
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { X } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
 
 // Define the type for a single blog post
 type Post = {
@@ -31,9 +31,9 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
-    // State is now two simple strings for the date inputs
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         setPosts(initialPosts);
@@ -44,7 +44,6 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
         return ["All", ...Array.from(new Set(allTags))];
     }, [posts]);
 
-    // Updated filtering logic for the new date inputs
     const filteredPosts = useMemo(() => {
         return posts
             .filter(
@@ -71,22 +70,26 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
             });
     }, [posts, searchTerm, selectedCategory, startDate, endDate]);
 
-    // Handler to clear date filters
     const clearDateFilter = () => {
         setStartDate("");
         setEndDate("");
-    }
+    };
+
+    const handleCategorySelect = (category: string) => {
+        setSelectedCategory(category);
+        setIsDropdownOpen(false);
+    };
 
     return (
-        <section>
+        <section className="relative">
             <h1 className="font-bold text-3xl mb-4 tracking-tighter">Blog</h1>
             <p className="text-muted-foreground mb-8">
                 My thoughts on software development, life, and more.
             </p>
 
-            <div className="mb-12">
+            <div className="mb-12 space-y-4">
                 {/* First row of filters */}
-                <div className="flex flex-wrap items-center gap-4 mb-4">
+                <div className="flex flex-wrap items-center gap-4">
                     <Input
                         type="text"
                         placeholder="Search posts..."
@@ -95,31 +98,54 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                         className="max-w-sm"
                     />
 
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline">
-                                Category: {selectedCategory}
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuRadioGroup
-                                value={selectedCategory}
-                                onValueChange={setSelectedCategory}
+                    <div className="relative">
+                        <DropdownMenu
+                            open={isDropdownOpen}
+                            onOpenChange={setIsDropdownOpen}
+                        >
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="min-w-[160px] justify-between"
+                                >
+                                    Category: {selectedCategory}
+                                    <ChevronDown
+                                        className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""
+                                            }`}
+                                    />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent
+                                align="start"
+                                className="w-[200px]"
+                                side="bottom"
+                                sideOffset={8}
                             >
-                                {categories.map((category) => (
-                                    <DropdownMenuRadioItem key={category} value={category}>
-                                        {category}
-                                    </DropdownMenuRadioItem>
-                                ))}
-                            </DropdownMenuRadioGroup>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                                <DropdownMenuRadioGroup
+                                    value={selectedCategory}
+                                    onValueChange={handleCategorySelect}
+                                >
+                                    {categories.map((category) => (
+                                        <DropdownMenuRadioItem
+                                            key={category}
+                                            value={category}
+                                            className="cursor-pointer"
+                                        >
+                                            {category}
+                                        </DropdownMenuRadioItem>
+                                    ))}
+                                </DropdownMenuRadioGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </div>
 
                 {/* Second row of filters */}
                 <div className="flex flex-wrap items-center gap-2">
                     <div className="flex items-center gap-2">
-                        <label htmlFor="start-date" className="text-sm text-muted-foreground">From:</label>
+                        <label htmlFor="start-date" className="text-sm text-muted-foreground">
+                            From:
+                        </label>
                         <Input
                             id="start-date"
                             type="date"
@@ -129,7 +155,9 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                         />
                     </div>
                     <div className="flex items-center gap-2">
-                        <label htmlFor="end-date" className="text-sm text-muted-foreground">To:</label>
+                        <label htmlFor="end-date" className="text-sm text-muted-foreground">
+                            To:
+                        </label>
                         <Input
                             id="end-date"
                             type="date"
@@ -139,7 +167,12 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                         />
                     </div>
                     {(startDate || endDate) && (
-                        <Button variant="ghost" size="icon" onClick={clearDateFilter} aria-label="Clear date filter">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={clearDateFilter}
+                            aria-label="Clear date filter"
+                        >
                             <X className="h-4 w-4" />
                         </Button>
                     )}
@@ -148,40 +181,52 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
 
             {/* Filtered Post List */}
             <div className="grid grid-cols-1 gap-8">
-                <AnimatePresence>
-                    {filteredPosts.map((post) => (
-                        <motion.div
-                            key={post.slug}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <Link
-                                href={`/blog/${post.slug}`}
-                                className="block group p-4 rounded-lg transition-all hover:bg-secondary"
+                <AnimatePresence mode="wait">
+                    {filteredPosts.length > 0 ? (
+                        filteredPosts.map((post) => (
+                            <motion.div
+                                key={post.slug}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3 }}
                             >
-                                <h2 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                                    {post.metadata.title}
-                                </h2>
-                                <p className="text-muted-foreground mt-2">
-                                    {post.metadata.summary}
-                                </p>
-                                <div className="flex items-center justify-between mt-4">
-                                    <time className="text-sm text-muted-foreground">
-                                        {formatDate(post.metadata.publishedAt)}
-                                    </time>
-                                    <div className="flex flex-wrap gap-2">
-                                        {post.metadata.tags?.map((tag) => (
-                                            <Badge key={tag} variant="outline">
-                                                {tag}
-                                            </Badge>
-                                        ))}
+                                <Link
+                                    href={`/blog/${post.slug}`}
+                                    className="block group p-4 rounded-lg transition-all hover:bg-secondary"
+                                >
+                                    <h2 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                                        {post.metadata.title}
+                                    </h2>
+                                    <p className="text-muted-foreground mt-2">
+                                        {post.metadata.summary}
+                                    </p>
+                                    <div className="flex items-center justify-between mt-4">
+                                        <time className="text-sm text-muted-foreground">
+                                            {formatDate(post.metadata.publishedAt)}
+                                        </time>
+                                        <div className="flex flex-wrap gap-2">
+                                            {post.metadata.tags?.map((tag) => (
+                                                <Badge key={tag} variant="outline">
+                                                    {tag}
+                                                </Badge>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
+                                </Link>
+                            </motion.div>
+                        ))
+                    ) : (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-center py-12"
+                        >
+                            <p className="text-muted-foreground">
+                                No posts found matching your filters.
+                            </p>
                         </motion.div>
-                    ))}
+                    )}
                 </AnimatePresence>
             </div>
         </section>
