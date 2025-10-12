@@ -108,6 +108,13 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       year: "",
     },
     {
+      issuer: "HashiCorp",
+      href: "https://www.credly.com/badges/4d07a91e-a75c-4353-bfe3-05b5ba491058/public_url",
+      title: "HashiCorp Certified: Terraform Associate (003)",
+      logoUrl: "../../public/hashicorp-certified-terraform-associate-003.png",
+      year: "",
+    },
+    {
       issuer: "Scrum.org",
       href: "https://www.scrum.org/professional-scrum-master-i-certification",
       title: "Professional Scrum Master™ I (PSM I)",
