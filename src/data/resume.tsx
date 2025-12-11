@@ -16,6 +16,8 @@ I originally studied Chemistry at university in Hong Kong, but everything change
 
 When I entered the professional world, I naturally looked for ways to improve processes. I started automating tasks with VBA and later built workflows in Power Automate that saved my team hours of repetitive work. That was my turning point. I realized my passion was in using technology to simplify life and make things more efficient. Since then, I have focused on Cloud and DevOps, moving away from the lab bench and into building scalable infrastructure with tools like Terraform and Bicep.
 
+I am a fast learner who continually explores new IT technologies. I dedicated two months to self-learning cloud computing and earned the AZ-104 certification on June 25. Afterwards, I expanded my skills by studying programming (with a focus on Python) and Terraform, achieving my Terraform Associate certification within a month.
+
 Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it is a useful gadget or a custom design. Music is also a big part of my life. I play piano, keyboard, and guitar, which helps me relax and express creativity in a different way. I also enjoy hiking and camping, something that grew from weekends outdoors in Hong Kong. On quieter days, I like gaming on my Xbox, Switch, or even revisiting some retro classics. Cooking is another way I unwind and explore creativity.`,
   avatarUrl: "/me.png",
   navbar: [
