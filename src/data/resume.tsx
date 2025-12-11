@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon, FileUser } from "lucide-react";
+import { HomeIcon, NotebookIcon, FileUser, Terminal } from "lucide-react";
 
 export const DATA = {
   name: "Savio Ng",
@@ -24,6 +24,7 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
     { href: "https://mycv.saviong.com", icon: FileUser, label: "Resume" },
+    { href: "/python", icon: Terminal, label: "Python" },
   ],
   contact: {
     email: "yeungson@gmail.com",
@@ -150,6 +151,30 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     },
   ],
   projects: [
+    {
+      title: "Python Playground",
+      href: "/python",
+      dates: "Dec 2025",
+      active: true,
+      description:
+        "A secure, browser-based Python execution environment using WebAssembly (Pyodide). Visitors can upload and run .py scripts directly in the browser.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "WebAssembly",
+        "Pyodide",
+        "TailwindCSS",
+      ],
+      links: [
+        {
+          type: "Try it",
+          href: "/python",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "",
+      video: "",
+    },
     {
       title: "Cheminformatics ML App with Docker",
       href: "https://github.com/saviong/molecular-property-predictor",
