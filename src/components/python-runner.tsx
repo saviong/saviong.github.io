@@ -1,34 +1,67 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import Script from 'next/script';
-import { Loader2, Play, Upload, RotateCcw } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Loader2, Play, Upload, RotateCcw, AlertCircle, Square } from 'lucide-react';
 
-// Define the window interface for Pyodide
-declare global {
-    interface Window {
-        loadPyodide: any;
-    }
-}
+const WORKER_SRC = "/pyodide-worker.js";
 
 export function PythonRunner() {
     const [code, setCode] = useState<string>("# Upload a .py file or type code here...\nprint('Hello from Python!')");
     const [output, setOutput] = useState<string>("");
     const [isPyodideReady, setIsPyodideReady] = useState<boolean>(false);
+    const [loadError, setLoadError] = useState<string | null>(null);
     const [isRunning, setIsRunning] = useState<boolean>(false);
-    const pyodideRef = useRef<any>(null);
+    const workerRef = useRef<Worker | null>(null);
 
-    // Initialize Pyodide once the script is loaded
-    const initPyodide = async () => {
-        if (window.loadPyodide && !pyodideRef.current) {
-            try {
-                pyodideRef.current = await window.loadPyodide();
-                setIsPyodideReady(true);
-            } catch (err) {
-                console.error("Error loading Pyodide:", err);
+    // Starting a worker is also how we stop a runaway script: terminate the old
+    // one and boot a clean interpreter in its place.
+    const startWorker = useCallback(() => {
+        workerRef.current?.terminate();
+        setIsPyodideReady(false);
+        setLoadError(null);
+
+        const worker = new Worker(WORKER_SRC);
+
+        worker.onmessage = (event: MessageEvent) => {
+            const message = event.data;
+            switch (message.type) {
+                case "ready":
+                    setIsPyodideReady(true);
+                    break;
+                case "stdout":
+                case "stderr":
+                    setOutput((prev) => prev + message.text + "\n");
+                    break;
+                case "done":
+                    setIsRunning(false);
+                    break;
+                case "error":
+                    setOutput((prev) => prev + `\nTraceback:\n${message.message}`);
+                    setIsRunning(false);
+                    break;
+                case "loaderror":
+                    setLoadError(message.message);
+                    setIsRunning(false);
+                    break;
             }
-        }
-    };
+        };
+
+        worker.onerror = () => {
+            setLoadError("Could not start the Python engine.");
+            setIsRunning(false);
+        };
+
+        worker.postMessage({ type: "init" });
+        workerRef.current = worker;
+    }, []);
+
+    useEffect(() => {
+        startWorker();
+        return () => {
+            workerRef.current?.terminate();
+            workerRef.current = null;
+        };
+    }, [startWorker]);
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -45,34 +78,21 @@ export function PythonRunner() {
         }
     };
 
-    const runCode = async () => {
-        if (!pyodideRef.current) return;
+    const runCode = () => {
+        if (!workerRef.current || !isPyodideReady) return;
+        setOutput("");
         setIsRunning(true);
-        setOutput(""); // Clear previous output
+        workerRef.current.postMessage({ type: "run", code });
+    };
 
-        try {
-            // Redirect Python's stdout to our state
-            pyodideRef.current.setStdout({
-                batched: (msg: string) => setOutput((prev) => prev + msg + "\n")
-            });
-
-            await pyodideRef.current.runPythonAsync(code);
-        } catch (error: any) {
-            setOutput((prev) => prev + `\nTraceback:\n${error.message}`);
-        } finally {
-            setIsRunning(false);
-        }
+    const stopCode = () => {
+        setOutput((prev) => prev + "\n^ Stopped. Restarting Python engine...");
+        setIsRunning(false);
+        startWorker();
     };
 
     return (
         <div className="w-full max-w-4xl mx-auto space-y-4">
-            {/* Load Pyodide from CDN */}
-            <Script
-                src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"
-                onLoad={initPyodide}
-                strategy="afterInteractive"
-            />
-
             {/* Header / Toolbar */}
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between p-4 border rounded-lg bg-background shadow-sm">
                 <div className="flex items-center gap-2">
@@ -81,17 +101,34 @@ export function PythonRunner() {
                         Upload .py File
                         <input type="file" accept=".py" onChange={handleFileUpload} className="hidden" />
                     </label>
-                    {!isPyodideReady && <span className="text-xs text-muted-foreground animate-pulse">Loading Python Engine...</span>}
+                    {loadError ? (
+                        <span className="flex items-center gap-1 text-xs text-destructive">
+                            <AlertCircle className="w-3 h-3" />
+                            {loadError}
+                        </span>
+                    ) : (
+                        !isPyodideReady && <span className="text-xs text-muted-foreground animate-pulse">Loading Python Engine...</span>
+                    )}
                 </div>
 
-                <button
-                    onClick={runCode}
-                    disabled={!isPyodideReady || isRunning}
-                    className="flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50"
-                >
-                    {isRunning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-                    {isRunning ? "Running..." : "Run Code"}
-                </button>
+                {isRunning ? (
+                    <button
+                        onClick={stopCode}
+                        className="flex items-center gap-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 px-6 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                        <Square className="w-4 h-4" />
+                        Stop
+                    </button>
+                ) : (
+                    <button
+                        onClick={runCode}
+                        disabled={!isPyodideReady}
+                        className="flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50"
+                    >
+                        {isPyodideReady ? <Play className="w-4 h-4" /> : <Loader2 className="w-4 h-4 animate-spin" />}
+                        Run Code
+                    </button>
+                )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[500px]">
