@@ -1,0 +1,59 @@
+---
+title: "Building an Interactive Azure Architecture Lab"
+publishedAt: "2026-09-04"
+summary: "How I simplified my portfolio and replaced a generic Python playground with a clickable Azure architecture walkthrough and Terraform cost estimator."
+tags:
+  - "Azure"
+  - "Terraform"
+  - "FinOps"
+  - "Next.js"
+  - "Portfolio"
+---
+
+I recently reviewed my portfolio with a simple question: does every part of the site help explain the kind of engineer I am becoming?
+
+That review led to two changes. I removed code and components that were no longer being used, then replaced a generic Python playground with an interactive project that is much closer to my Cloud and DevOps work: an **Azure Architecture Lab**.
+
+### Simplifying the portfolio
+
+The first step was reducing unnecessary code. I removed unused components, icons, and an archived resume snapshot that had no effect on the live site. This made the project easier to understand and reduced the amount of code that needs to be maintained.
+
+I also reviewed the Python playground from a security perspective. The Python code ran locally in the visitor's browser through WebAssembly, so uploaded files were not being sent to my server. The more practical issue was reliability: a long-running script could consume browser resources, and the feature did not communicate much about my cloud engineering experience.
+
+Rather than keeping an interactive feature simply because it was interactive, I decided to remove it and build something more relevant.
+
+### A clickable Azure architecture
+
+The new lab presents the request path behind my serverless Azure portfolio. Visitors can select each service to understand its role in the system:
+
+* **GitHub Actions** builds and deploys application and infrastructure changes.
+* **Azure Front Door** handles HTTPS and routes traffic at the edge.
+* **Azure Storage** hosts the static website.
+* **Azure Functions** runs the visitor-counter API on a consumption plan.
+* **Cosmos DB** stores the visitor count.
+* **Application Insights** provides request tracing and operational visibility.
+
+Each node also includes a security decision. These cover practical controls such as OpenID Connect for deployments, managed identity between services, least-privilege access, CORS restrictions, and avoiding sensitive data in logs.
+
+### Estimating Terraform costs in the browser
+
+The second part of the lab is a small Terraform cost estimator. It detects supported `azurerm` resource blocks and updates the monthly estimate as the configuration changes.
+
+Terraform describes the infrastructure capacity, but cost also depends on usage. I therefore added controls for storage, outbound traffic, Function requests, Cosmos DB throughput, and log ingestion. The estimate updates immediately when either the Terraform or the usage assumptions change.
+
+The tool deliberately labels its output as an educational estimate. Azure prices vary by region, agreement, reservation, and usage pattern, so it should not be confused with an official quote. Unsupported resources are shown as unpriced rather than being assigned a misleading value.
+
+### What I learned
+
+This update reinforced a few principles I want to carry into future projects:
+
+1. A smaller codebase is easier to reason about and safer to change.
+2. Security reviews should distinguish an actual vulnerability from a reliability or usability problem.
+3. Interactive portfolio pieces are strongest when they demonstrate the decisions behind real engineering work.
+4. Cost visibility should be considered while designing infrastructure, not after deployment.
+
+You can try both tools in the [Azure Architecture Lab](/azure-lab).
+
+---
+
+[← Back to Blog](/blog)
