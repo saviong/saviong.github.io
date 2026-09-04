@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon, FileUser } from "lucide-react";
+import { HomeIcon, NotebookIcon, FileUser, CloudCog } from "lucide-react";
 
 export const DATA = {
   name: "Savio Ng",
@@ -23,6 +23,7 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/azure-lab", icon: CloudCog, label: "Azure Lab" },
     { href: "https://mycv.saviong.com", icon: FileUser, label: "Resume" },
   ],
   contact: {
@@ -150,6 +151,30 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     },
   ],
   projects: [
+    {
+      title: "Interactive Azure Architecture Lab",
+      href: "/azure-lab",
+      dates: "Sep 2026",
+      active: true,
+      description:
+        `A clickable walkthrough of my serverless Azure portfolio architecture paired with a live, browser-based Terraform cost estimator.`,
+      technologies: [
+        "Terraform",
+        "Azure",
+        "FinOps",
+        "Next.js",
+        "TypeScript",
+      ],
+      links: [
+        {
+          type: "Explore",
+          href: "/azure-lab",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "",
+      video: "",
+    },
     {
       title: "Cheminformatics ML App with Docker",
       href: "https://github.com/saviong/molecular-property-predictor",
