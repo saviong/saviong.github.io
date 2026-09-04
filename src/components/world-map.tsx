@@ -2,22 +2,13 @@
 
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import BlurFade from "./magicui/blur-fade";
+import { SectionHeading } from "./section-heading";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 
 // This is the path to the file you downloaded in Step 2
 const geoUrl = "/world-countries.json";
-
-// =================================================================================
-// IMPORTANT: UPDATE THIS SECTION WITH THE COUNTRIES YOU HAVE VISITED
-// Use 3-letter ISO 3166-1 alpha-3 codes. You can find them online.
-// =================================================================================
-const visitedCountries = [
-    "JPN", "KOR", "SGP", "ESP", "PRT", "THA", "MYS", "CZE", "TWN",
-    "MAC", "VAT", "ITA", "FRA", "BEL", "NLD", "AUT", "CHE", "DNK",
-    "SWE", "NOR", "ARE", "CHN", "GBR", "DEU" // Added United Kingdom from your previous data
-];
 
 const countryData: { [key: string]: { name: string; category: string } } = {
     // Asia
@@ -50,7 +41,15 @@ const countryData: { [key: string]: { name: string; category: string } } = {
     // Middle East
     "ARE": { name: "United Arab Emirates", category: "Middle East" },
 };
-// =================================================================================
+
+const visitedSet = new Set(Object.keys(countryData));
+const countriesByCategory = Object.values(countryData).reduce<Record<string, string[]>>(
+    (categories, country) => {
+        (categories[country.category] ??= []).push(country.name);
+        return categories;
+    },
+    {},
+);
 
 
 export const WorldMap = () => {
@@ -60,8 +59,6 @@ export const WorldMap = () => {
     useEffect(() => {
         setIsClient(true);
     }, []);
-
-    const visitedSet = useMemo(() => new Set(visitedCountries), [visitedCountries]);
 
     if (!isClient) {
         return (
@@ -78,19 +75,11 @@ export const WorldMap = () => {
     return (
         <section id="map" className="w-full py-12">
             <BlurFade delay={0.04 * 14}>
-                <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                    <div className="space-y-2">
-                        <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                            My Travels
-                        </div>
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                            Countries I&apos;ve Visited
-                        </h2>
-                        <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                            An interactive map of my journeys around the globe. Hover over a country to see its name.
-                        </p>
-                    </div>
-                </div>
+                <SectionHeading
+                    eyebrow="My Travels"
+                    title="Countries I've Visited"
+                    description="An interactive map of my journeys around the globe. Hover over a country to see its name."
+                />
             </BlurFade>
             <BlurFade delay={0.04 * 16}>
                 <div className="flex justify-center mt-8">
@@ -144,23 +133,12 @@ export const WorldMap = () => {
                         </div>
                         <div className="w-full mt-4">
                             <div className="text-center space-y-3">
-                                {(() => {
-                                    const categories: { [key: string]: string[] } = {};
-                                    visitedCountries.forEach(countryCode => {
-                                        const data = countryData[countryCode];
-                                        if (data) {
-                                            const category = data.category || "Other";
-                                            if (!categories[category]) categories[category] = [];
-                                            categories[category].push(data.name);
-                                        }
-                                    });
-                                    return Object.entries(categories).map(([category, countries]) => (
-                                        <div key={category}>
-                                            <p className="text-sm font-semibold text-muted-foreground">{category}</p>
-                                            <p className="text-sm text-foreground">{countries.join(", ")}</p>
-                                        </div>
-                                    ));
-                                })()}
+                                {Object.entries(countriesByCategory).map(([category, countries]) => (
+                                    <div key={category}>
+                                        <p className="text-sm font-semibold text-muted-foreground">{category}</p>
+                                        <p className="text-sm text-foreground">{countries.join(", ")}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>

@@ -1,13 +1,12 @@
-// src/components/tech-stack.tsx
-
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Grid3X3, ArrowLeft } from "lucide-react";
 import BlurFade from "./magicui/blur-fade";
+import { SectionHeading } from "./section-heading";
 
 interface TechItem {
     name: string;
@@ -19,13 +18,11 @@ interface TechCategory {
     items: TechItem[];
 }
 
-// Data updated with new icons and links
 const techCategories: TechCategory[] = [
     {
         category: "Cloud Platforms",
         items: [
             { name: "Azure", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
-            // 3. AWS icon link updated
             { name: "AWS", logo: "https://img.icons8.com/?size=512&id=wU62u24brJ44&format=png" },
         ],
     },
@@ -33,9 +30,7 @@ const techCategories: TechCategory[] = [
         category: "Infrastructure as Code & Automation",
         items: [
             { name: "Terraform", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" },
-            // 5. Bicep icon link updated
             { name: "Bicep", logo: "https://ms-azuretools.gallerycdn.vsassets.io/extensions/ms-azuretools/visualstudiobicep/0.37.4.10188/1754066855772/Microsoft.VisualStudio.Services.Icons.Default" },
-            // 4. CloudFormation icon link updated
             { name: "CloudFormation", logo: "https://images.icon-icons.com/2699/PNG/512/amazon_cloudformation_logo_icon_169610.png" },
             { name: "GitHub Actions", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" },
         ],
@@ -57,7 +52,6 @@ const techCategories: TechCategory[] = [
             { name: "PowerShell", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/powershell/powershell-original.svg" },
         ],
     },
-    // 2. New category added for Frontend technologies
     {
         category: "Frontend & Version Control",
         items: [
@@ -69,7 +63,7 @@ const techCategories: TechCategory[] = [
 ];
 
 // Flatten all items for the scrolling marquee
-const allTechItems: TechItem[] = techCategories.flatMap(category => category.items || []);
+const allTechItems = techCategories.flatMap((category) => category.items);
 
 const TechItemDisplay = ({ tech, showName = false }: { tech: TechItem; showName?: boolean }) => {
     return (
@@ -79,7 +73,6 @@ const TechItemDisplay = ({ tech, showName = false }: { tech: TechItem; showName?
                     src={tech.logo}
                     alt={`${tech.name} logo`}
                     fill
-                    // 1. Grayscale classes removed to make icons colorful
                     className="object-contain filter transition-all duration-300"
                     unoptimized
                 />
@@ -94,8 +87,6 @@ const TechItemDisplay = ({ tech, showName = false }: { tech: TechItem; showName?
 };
 
 export const TechStack = () => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
     const [showAll, setShowAll] = useState(false);
 
     // Duplicate the tech stack for seamless infinite scroll
@@ -104,19 +95,11 @@ export const TechStack = () => {
     return (
         <section id="tech-stack" className="w-full py-12">
             <BlurFade delay={0.04 * 10}>
-                <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                    <div className="space-y-2">
-                        <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                            Tech Stack
-                        </div>
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                            Tools and Technologies
-                        </h2>
-                        <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                            The tools and technologies I use to build and automate infrastructure.
-                        </p>
-                    </div>
-                </div>
+                <SectionHeading
+                    eyebrow="Tech Stack"
+                    title="Tools and Technologies"
+                    description="The tools and technologies I use to build and automate infrastructure."
+                />
             </BlurFade>
 
             <BlurFade delay={0.04 * 12}>
@@ -165,8 +148,8 @@ export const TechStack = () => {
                                         {category.category}
                                     </h3>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
-                                        {category.items?.map((tech) => (
-                                            <TechItemDisplay key={tech.name} tech={tech} showName={true} />
+                                        {category.items.map((tech) => (
+                                            <TechItemDisplay key={tech.name} tech={tech} showName />
                                         ))}
                                     </div>
                                 </div>

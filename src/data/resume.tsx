@@ -5,8 +5,6 @@ export const DATA = {
   name: "Savio Ng",
   initials: "SN",
   url: "https://saviong.github.io",
-  location: "London, UK",
-  locationLink: "http://googleusercontent.com/maps/google.com/1",
   description:
     "",
   summary:
@@ -27,23 +25,18 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     { href: "https://mycv.saviong.com", icon: FileUser, label: "Resume" },
   ],
   contact: {
-    email: "yeungson@gmail.com",
-    tel: "+44-xxxx-xxxx",
     social: {
       GitHub: {
-        name: "GitHub",
         url: "https://github.com/saviong",
         icon: Icons.github,
         navbar: true,
       },
       LinkedIn: {
-        name: "LinkedIn",
         url: "https://www.linkedin.com/in/saviong",
         icon: Icons.linkedin,
         navbar: true,
       },
       email: {
-        name: "Send Email",
         url: "mailto:yeungson@gmail.com",
         icon: Icons.email,
         navbar: true,
@@ -55,8 +48,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     {
       company: "Anthony Nolan",
       href: "https://www.anthonynolan.org/",
-      badges: [],
-      location: "London, UK",
       title: "Laboratory Asset Coordinator",
       logoUrl: "/anthonynolan.jpg",
       start: "August 2021",
@@ -71,8 +62,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     {
       company: "MediFast (Hong Kong) Ltd.",
       href: "https://www.medifast.com.hk/en/",
-      badges: [],
-      location: "Hong Kong",
       title: "Senior Business Development Officer\nBusiness Development Officer",
       logoUrl: "/medifasthk.jpeg",
       start: "September 2017",
@@ -92,8 +81,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     {
       company: "Early Career Experience",
       href: "#",
-      badges: [],
-      location: "Hong Kong",
       title: "Medical Sales Representative at DKSH\nSales Executive at World Ways Co. (HK) Ltd.\nLaboratory Technician at ASB Biodiesel",
       logoUrl: "https://static.vecteezy.com/system/resources/previews/024/208/012/non_2x/simple-briefcase-icon-the-icon-can-be-used-for-websites-print-templates-presentation-templates-illustrations-etc-free-vector.jpg",
       start: "2013",
@@ -128,7 +115,7 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       issuer: "Atlassian",
       href: "https://university.atlassian.com/student/collection/831206-agile-project-management-professional-certificate",
       title: "Atlassian Agile Project Management Professional Certificate",
-      logoUrl: "https://camo.githubusercontent.com/b97eaa6d1a4edc127545803f08dc9315e7e6132960e6fadc28f7d024161a97ee/68747470733a2f2f61746c61737369616e2e67616c6c65727963646e2e76736173736574732e696f2f657874656e73696f6e732f61746c61737369616e2f61746c6173636f64652f312e342e302f313535383132333132313437352f4d6963726f736f66742e56697375616c53747564696f2e53657276696365732e49636f6e732e44656661756c74",
+      logoUrl: "/atlassian.svg",
       year: "",
     },
   ],
@@ -155,7 +142,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       title: "Interactive Azure Architecture Lab",
       href: "/azure-lab",
       dates: "Sep 2026",
-      active: true,
       description:
         `A clickable walkthrough of my serverless Azure portfolio architecture paired with a live, browser-based Terraform cost estimator.`,
       technologies: [
@@ -179,7 +165,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       title: "Cheminformatics ML App with Docker",
       href: "https://github.com/saviong/molecular-property-predictor",
       dates: "Aug 2025",
-      active: true,
       description:
         `Built a full-stack cheminformatics Python app with a Scikit-learn model and containerized the entire ML pipeline using Docker to create a reproducible, portable prediction tool.`,
       technologies: [
@@ -204,7 +189,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       title: "Serverless Portfolio with CI/CD on Azure",
       href: "https://github.com/saviong/html-resume-frontend/",
       dates: "Aug 2025",
-      active: true,
       description:
         `Deployed a serverless, CI/CD-enabled personal portfolio website on Azure. Implemented a visitor counter using an Azure Function (Python) to write to a Cosmos DB table, triggered via a REST API. Automated infrastructure provisioning and application deployment using ARM templates and a GitHub Actions pipeline.`,
       technologies: [
@@ -243,7 +227,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       title: "Multi-Cloud VM Deployment with Terraform",
       href: "https://github.com/saviong/Terraform-multi-cloud-deployment",
       dates: "Jun 2025",
-      active: true,
       description:
         `Authored a single Terraform configuration to provision identical Nginx web servers across both AWS and Azure simultaneously. Reduced manual setup time by 95% and enabled consistent environments for cross-cloud disaster recovery testing.`,
       technologies: [
@@ -267,7 +250,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       title: "Secure & Reproducible IaC Templates for AWS & Azure",
       href: "https://github.com/saviong/IaC-templates-for-multi-cloud-VM-deployment",
       dates: "Aug 2025",
-      active: true,
       description:
         `Developed parameterised templates for deploying hardened Linux VMs, standardizing builds and reducing provisioning errors. Cut VM deployment time from hours to under 10 minutes, facilitating peer review and GitOps workflows.`,
       technologies: [
@@ -311,62 +293,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
           title: "Leadership Strategy and Tactics: Field Manual",
           author: "Jocko Willink",
           number: 3,
-        },
-        {
-          title: "",
-          author: "",
-          number: 4,
-        },
-      ],
-    },
-    {
-      theme: "Science & Technology",
-      books: [
-        {
-          title: "",
-          author: "",
-          number: 5,
-        },
-
-      ],
-    },
-    {
-      theme: "History & Global Affairs",
-      books: [
-        {
-          title: "",
-          author: "",
-          number: 7,
-        },
-        {
-          title: "",
-          author: ".",
-          number: 8,
-        },
-      ],
-    },
-    {
-      theme: "Digital Life & Privacy",
-      books: [
-        {
-          title: "",
-          author: "",
-          number: 9,
-        },
-        {
-          title: "",
-          author: "",
-          number: 10,
-        },
-      ],
-    },
-    {
-      theme: "Memoir & Personal Reflections",
-      books: [
-        {
-          title: "",
-          author: "",
-          number: 11,
         },
       ],
     },

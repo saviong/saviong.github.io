@@ -96,23 +96,18 @@ const CategoryDropdown = ({
 };
 
 export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
-    const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
-    useEffect(() => {
-        setPosts(initialPosts);
+    const categories = useMemo(() => {
+        const allTags = initialPosts.flatMap((post) => post.metadata.tags || []);
+        return ["All", ...Array.from(new Set(allTags))];
     }, [initialPosts]);
 
-    const categories = useMemo(() => {
-        const allTags = posts.flatMap((post) => post.metadata.tags || []);
-        return ["All", ...Array.from(new Set(allTags))];
-    }, [posts]);
-
     const filteredPosts = useMemo(() => {
-        return posts
+        return initialPosts
             .filter(
                 (post) =>
                     post.metadata.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -135,7 +130,7 @@ export function BlogClient({ initialPosts }: { initialPosts: Post[] }) {
                 }
                 return true;
             });
-    }, [posts, searchTerm, selectedCategory, startDate, endDate]);
+    }, [initialPosts, searchTerm, selectedCategory, startDate, endDate]);
 
     const clearDateFilter = () => {
         setStartDate("");

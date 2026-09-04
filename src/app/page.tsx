@@ -3,7 +3,6 @@ import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -11,6 +10,8 @@ import { BookCard } from "@/components/book-card";
 import { TechStack } from "@/components/tech-stack";
 import { CareerPath } from "@/components/career-path";
 import { WorldMap } from "@/components/world-map";
+import { GitHubContributions } from "@/components/github-contributions";
+import { SectionHeading } from "@/components/section-heading";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -80,13 +81,11 @@ export default function Page() {
               delay={BLUR_FADE_DELAY * 6 + id * 0.05}
             >
               <ResumeCard
-                key={work.company}
                 logoUrl={work.logoUrl}
                 altText={work.company}
                 title={work.company}
                 subtitle={work.title}
                 href={work.href}
-                badges={work.badges}
                 period={`${work.start} - ${work.end ?? "Present"}`}
                 description={work.description}
               />
@@ -105,7 +104,6 @@ export default function Page() {
               delay={BLUR_FADE_DELAY * 8 + id * 0.05}
             >
               <ResumeCard
-                key={certification.title}
                 href={certification.href}
                 logoUrl={certification.logoUrl}
                 altText={certification.issuer}
@@ -128,7 +126,6 @@ export default function Page() {
               delay={BLUR_FADE_DELAY * 8 + id * 0.05}
             >
               <ResumeCard
-                key={education.school}
                 href={education.href}
                 logoUrl={education.logoUrl}
                 altText={education.school}
@@ -141,22 +138,15 @@ export default function Page() {
         </div>
       </section>
       <TechStack />
+      <GitHubContributions />
       <section id="projects">
         <div className="space-y-12 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  My Projects
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Check out my latest work
-                </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  I build scalable, automated, and efficient solutions. The following projects demonstrate how I apply these concepts.
-                </p>
-              </div>
-            </div>
+            <SectionHeading
+              eyebrow="My Projects"
+              title="Check out my latest work"
+              description="I build scalable, automated, and efficient solutions. The following projects demonstrate how I apply these concepts."
+            />
           </BlurFade>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
             {DATA.projects.map((project, id) => (
@@ -166,7 +156,6 @@ export default function Page() {
               >
                 <ProjectCard
                   href={project.href}
-                  key={project.title}
                   title={project.title}
                   description={project.description}
                   dates={project.dates}
@@ -181,43 +170,30 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Reading List Section */}
       <section id="reading">
         <div className="space-y-12 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 13}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  Reading List
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  On My Bookshelf
-                </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  A selection of insightful books that have influenced my perspective on technology, leadership, and society.
-                </p>
-              </div>
-            </div>
+            <SectionHeading
+              eyebrow="Reading List"
+              title="On My Bookshelf"
+              description="A selection of insightful books that have influenced my perspective on technology, leadership, and society."
+            />
           </BlurFade>
 
-          {/* This is the new timeline layout */}
           <div className="max-w-2xl mx-auto space-y-10">
             {DATA.books.map((category, categoryId) => {
-              const validBooks = category.books.filter((book) => book.title);
-              if (validBooks.length === 0) return null;
-
               return (
                 <BlurFade key={category.theme} delay={BLUR_FADE_DELAY * 14 + categoryId * 0.1}>
-                  <div key={category.theme}>
+                  <div>
                     <h3 className="text-xl font-semibold mb-6">{category.theme}</h3>
                     <ul>
-                      {validBooks.map((book, bookId) => (
+                      {category.books.map((book, bookId) => (
                         <BookCard
                           key={book.number}
                           number={book.number}
                           title={book.title}
                           author={book.author}
-                          isLastItem={bookId === validBooks.length - 1}
+                          isLastItem={bookId === category.books.length - 1}
                         />
                       ))}
                     </ul>

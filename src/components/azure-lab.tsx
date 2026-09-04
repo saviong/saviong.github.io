@@ -45,7 +45,6 @@ type CostLine = {
   key: string;
   resource: string;
   service: string;
-  quantity: number;
   monthly: number | null;
   assumption: string;
 };
@@ -254,7 +253,6 @@ function estimateResources(
     const base = {
       key: `${resource.type}.${resource.name}`,
       resource: resource.name,
-      quantity: count,
     };
 
     switch (resource.type) {
