@@ -158,7 +158,7 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
           icon: <Icons.globe className="size-3" />,
         },
       ],
-      image: "",
+      image: "/azure-lab.png",
       video: "",
     },
     {
