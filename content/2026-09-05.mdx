@@ -1,0 +1,109 @@
+---
+title: "The API Route That Was Secretly a Static File"
+publishedAt: "2026-09-05"
+summary: "My GitHub activity graph stopped updating. The cause was not the data source but a Next.js route handler being prerendered at build time."
+tags:
+  - "Next.js"
+  - "Caching"
+  - "Debugging"
+  - "Vercel"
+  - "Portfolio"
+---
+
+I finished a day of work on GitHub, opened my portfolio to see the contribution graph light up, and found yesterday's numbers staring back at me.
+
+The section is fed by a small API route in my Next.js app, which calls a public contributions service and returns the result. Nothing about it looked broken. That made it a good debugging exercise, because the wrong answer was easy to reach and the right one was one layer deeper.
+
+### Checking the obvious suspect first
+
+My first assumption was that the upstream service was lagging. That is the kind of assumption worth testing immediately rather than reasoning about, so I called it directly:
+
+```bash
+curl "https://github-contributions-api.jogruber.de/v4/saviong?y=last"
+```
+
+The response already contained the current day, with the correct count. The data source was fine. Whatever was stale lived inside my own application.
+
+### The actual cause
+
+The answer was in the build output. Next.js prints how every route is rendered, and mine said this:
+
+```
+○ /api/github-contributions            0 B
+○  (Static)  prerendered as static content
+```
+
+An API route marked **Static**. Next.js had decided that because the handler takes no request input and reads nothing dynamic, its response could be computed once, at build time. Looking inside the build directory confirmed it:
+
+```
+.next/server/app/api/github-contributions.body
+.next/server/app/api/github-contributions.meta
+```
+
+That `.body` file was the complete JSON response, written to disk during the build. My endpoint was not calling GitHub at all. It was serving a file whose contents were frozen at the moment of my last deployment.
+
+This explains the symptom exactly. The graph was never going to update on its own, no matter how long I waited. It could only change when I redeployed the site.
+
+### Why the revalidate setting did not help
+
+I had already set what I thought was the safeguard:
+
+```ts
+export const revalidate = 3600;
+```
+
+I had read this as "refresh every hour." What it actually does is mark the route as eligible for revalidation. It does not stop Next.js from prerendering an initial response into the build.
+
+My cache header made it worse:
+
+```
+Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400
+```
+
+That final directive permits a shared cache to keep serving a stale response for **24 hours** while it refreshes in the background. On a personal site with modest traffic, there is often no visitor to trigger that refresh. I had written a header that allowed day-old data and then wondered why I was seeing day-old data.
+
+### The fix
+
+The correction was to stop the route being prerendered at all, and to make the caching intentional rather than implied:
+
+```ts
+export const dynamic = "force-dynamic";
+```
+
+With that line the route is server-rendered on demand, and the build output changes to `ƒ (Dynamic)`. The `.body` file disappears entirely.
+
+The route now fetches upstream with `cache: "no-store"`, so when it runs it genuinely asks for current data. Freshness is then controlled by one deliberate header:
+
+```
+Cache-Control: public, max-age=0, s-maxage=900, stale-while-revalidate=900
+```
+
+Each directive earns its place. `max-age=0` means browsers always revalidate rather than trusting a local copy. `s-maxage=900` lets the CDN serve a cached response for fifteen minutes, so the upstream service is called a few times an hour regardless of how many people visit. The stale window drops from twenty-four hours to fifteen minutes.
+
+I also stopped caching failures. Previously an error response inherited the same long cache policy, meaning a single upstream blip could be preserved and shown for the rest of the window. Errors now return `Cache-Control: no-store`.
+
+### Refreshing on the client
+
+Fixing the server only guarantees fresh data at the moment the page loads. A tab left open all afternoon would still drift, so the component now refetches every fifteen minutes and again whenever the visitor returns to the tab.
+
+One detail was worth getting right. If a background refresh fails, the component keeps displaying the last good graph instead of replacing it with an error message. An error state is only shown when nothing has ever loaded successfully. A temporary network failure should not destroy information that is already on screen.
+
+### A smaller cleanup
+
+Earlier in the day I finished a piece of tidying I had started previously. Four sections of my homepage shared an identical heading block, which I had already extracted into a single component. The contact section had resisted, because its description contains a link rather than plain text and its paragraph uses a narrower column.
+
+Rather than leaving it duplicated or forcing it into a shape that did not fit, I widened the component slightly: the description now accepts rich content, and an optional class name preserves the narrower width. There are now no hand-written copies of that markup anywhere in the codebase. I also merged two consecutive `@layer base` blocks in my stylesheet that had no reason to be separate.
+
+### What I learned
+
+1. Test the assumption you are most confident about first. Confirming the upstream API was healthy took one command and eliminated most of the search space.
+2. Build output is documentation. `○ Static` against an API route was the whole answer, printed on every build, and I had been scrolling past it.
+3. A framework will make optimisation decisions on your behalf. Static rendering is usually a gift, but it is the wrong choice for an endpoint whose entire purpose is to be current.
+4. Write cache headers you can explain directive by directive. I had copied a `stale-while-revalidate` value without considering that it permitted exactly the staleness I was complaining about.
+5. Degrade without destroying. A failed refresh should preserve what the user can already see.
+
+The graph now updates on its own, which means the section finally does what it always claimed to do.
+
+---
+
+[← Back to Blog](/blog)

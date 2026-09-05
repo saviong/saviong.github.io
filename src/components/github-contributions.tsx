@@ -27,12 +27,30 @@ const LEVEL_STYLES = [
   "bg-emerald-800 dark:bg-emerald-400",
 ];
 
-function chunkIntoWeeks(days: ContributionDay[]) {
-  const weeks: ContributionDay[][] = [];
-  for (let index = 0; index < days.length; index += 7) {
-    weeks.push(days.slice(index, index + 7));
+// A calendar column is a week running Sunday -> Saturday. The API may start on
+// any weekday, so pad both ends; otherwise every square lands on the wrong row
+// and the Mon/Wed/Fri labels no longer describe the grid.
+type CalendarCell = ContributionDay | null;
+
+function buildCalendarWeeks(days: ContributionDay[]): CalendarCell[][] {
+  if (days.length === 0) return [];
+
+  const cells: CalendarCell[] = [];
+  const firstWeekday = new Date(`${days[0].date}T00:00:00`).getDay();
+  for (let index = 0; index < firstWeekday; index += 1) cells.push(null);
+  cells.push(...days);
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  const weeks: CalendarCell[][] = [];
+  for (let index = 0; index < cells.length; index += 7) {
+    weeks.push(cells.slice(index, index + 7));
   }
   return weeks;
+}
+
+function monthOf(week: CalendarCell[]) {
+  const day = week.find((cell): cell is ContributionDay => cell !== null);
+  return day ? new Date(`${day.date}T00:00:00`).getMonth() : null;
 }
 
 function calculateStreak(days: ContributionDay[]) {
@@ -105,7 +123,7 @@ export function GitHubContributions() {
   }, []);
 
   const weeks = useMemo(
-    () => chunkIntoWeeks(data?.contributions ?? []),
+    () => buildCalendarWeeks(data?.contributions ?? []),
     [data?.contributions],
   );
   const activeDays = data?.contributions.filter((day) => day.count > 0).length ?? 0;
@@ -118,7 +136,7 @@ export function GitHubContributions() {
         <SectionHeading
           eyebrow="GitHub Activity"
           title="Building in Public"
-          description="My public contributions over the past year, refreshed automatically from GitHub."
+          description="My public GitHub contributions over the last 12 months, refreshed automatically."
         />
       </BlurFade>
 
@@ -131,7 +149,7 @@ export function GitHubContributions() {
               </span>
               <div>
                 <p className="font-semibold">@{USERNAME}</p>
-                <p className="text-sm text-muted-foreground">Public GitHub contributions</p>
+                <p className="text-sm text-muted-foreground">Public contributions, last 12 months</p>
               </div>
             </div>
             <a
@@ -173,14 +191,18 @@ export function GitHubContributions() {
                 <div className="min-w-[680px]">
                   <div className="mb-1 grid grid-flow-col grid-rows-1 gap-1 pl-7">
                     {weeks.map((week, index) => {
-                      const currentMonth = new Date(`${week[0].date}T00:00:00`).getMonth();
-                      const previousMonth = index > 0
-                        ? new Date(`${weeks[index - 1][0].date}T00:00:00`).getMonth()
-                        : -1;
+                      const currentMonth = monthOf(week);
+                      const previousMonth = index > 0 ? monthOf(weeks[index - 1]) : null;
+                      const label = week.find(
+                        (cell): cell is ContributionDay => cell !== null,
+                      );
                       return (
-                        <span key={week[0].date} className="w-2.5 text-[10px] text-muted-foreground">
-                          {currentMonth !== previousMonth
-                            ? new Date(`${week[0].date}T00:00:00`).toLocaleDateString("en-GB", { month: "short" })
+                        <span
+                          key={label?.date ?? `week-${index}`}
+                          className="w-2.5 text-[10px] text-muted-foreground"
+                        >
+                          {label && currentMonth !== previousMonth
+                            ? new Date(`${label.date}T00:00:00`).toLocaleDateString("en-GB", { month: "short" })
                             : ""}
                         </span>
                       );
@@ -197,17 +219,21 @@ export function GitHubContributions() {
                       <span />
                     </div>
                     <div className="grid grid-flow-col grid-rows-7 gap-1">
-                      {data.contributions.map((day) => (
-                        <span
-                          key={day.date}
-                          title={formatContribution(day)}
-                          aria-label={formatContribution(day)}
-                          className={cn(
-                            "size-2.5 rounded-[2px] ring-1 ring-inset ring-black/5 dark:ring-white/5",
-                            LEVEL_STYLES[Math.min(day.level, LEVEL_STYLES.length - 1)],
-                          )}
-                        />
-                      ))}
+                      {weeks.flat().map((day, index) =>
+                        day === null ? (
+                          <span key={`pad-${index}`} className="size-2.5" />
+                        ) : (
+                          <span
+                            key={day.date}
+                            title={formatContribution(day)}
+                            aria-label={formatContribution(day)}
+                            className={cn(
+                              "size-2.5 rounded-[2px] ring-1 ring-inset ring-black/5 dark:ring-white/5",
+                              LEVEL_STYLES[Math.min(day.level, LEVEL_STYLES.length - 1)],
+                            )}
+                          />
+                        ),
+                      )}
                     </div>
                   </div>
                 </div>
