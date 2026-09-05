@@ -139,6 +139,29 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
   ],
   projects: [
     {
+      title: "Info Dashboard for HK & UK Transit",
+      href: "https://info-sav.vercel.app/",
+      dates: "Sep 2026",
+      description:
+        `A configurable board of up to eight widgets showing live departures, service status, traffic and weather for Hong Kong and the UK. Aggregates MTR, KMB, Citybus, TfL and National Rail feeds alongside Hong Kong Observatory data through an Azure Container Apps backend, with a bilingual English and Chinese interface and browser-only storage that needs no account.`,
+      technologies: [
+        "React",
+        "Vite",
+        "Azure Container Apps",
+        "REST APIs",
+        "Vercel",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://info-sav.vercel.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
       title: "Interactive Azure Architecture Lab",
       href: "/azure-lab",
       dates: "Sep 2026",
