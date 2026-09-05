@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import BlurFade from "@/components/magicui/blur-fade";
 import { SectionHeading } from "@/components/section-heading";
@@ -18,6 +18,7 @@ type ContributionsResponse = {
 };
 
 const USERNAME = "saviong";
+const REFRESH_INTERVAL_MS = 15 * 60 * 1000;
 const LEVEL_STYLES = [
   "bg-muted",
   "bg-emerald-200 dark:bg-emerald-950",
@@ -58,21 +59,49 @@ function formatContribution(day: ContributionDay) {
 export function GitHubContributions() {
   const [data, setData] = useState<ContributionsResponse | null>(null);
   const [failed, setFailed] = useState(false);
+  const hasLoadedRef = useRef(false);
 
   useEffect(() => {
     const controller = new AbortController();
+    let cancelled = false;
 
-    fetch("/api/github-contributions", { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error("Contribution request failed");
-        return response.json();
+    const load = () => {
+      // cache: "no-store" so a refresh never comes back from the browser cache.
+      fetch("/api/github-contributions", {
+        signal: controller.signal,
+        cache: "no-store",
       })
-      .then((result: ContributionsResponse) => setData(result))
-      .catch((error: Error) => {
-        if (error.name !== "AbortError") setFailed(true);
-      });
+        .then((response) => {
+          if (!response.ok) throw new Error("Contribution request failed");
+          return response.json();
+        })
+        .then((result: ContributionsResponse) => {
+          if (cancelled) return;
+          hasLoadedRef.current = true;
+          setData(result);
+          setFailed(false);
+        })
+        .catch((error: Error) => {
+          if (error.name === "AbortError" || cancelled) return;
+          // Keep showing the last good graph if a background refresh fails.
+          if (!hasLoadedRef.current) setFailed(true);
+        });
+    };
 
-    return () => controller.abort();
+    load();
+
+    const interval = setInterval(load, REFRESH_INTERVAL_MS);
+    const refreshOnReturn = () => {
+      if (document.visibilityState === "visible") load();
+    };
+    document.addEventListener("visibilitychange", refreshOnReturn);
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", refreshOnReturn);
+    };
   }, []);
 
   const weeks = useMemo(
