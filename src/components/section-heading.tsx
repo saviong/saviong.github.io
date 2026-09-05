@@ -1,10 +1,18 @@
+import { cn } from "@/lib/utils";
+
 interface SectionHeadingProps {
   eyebrow: string;
   title: string;
-  description: string;
+  description: React.ReactNode;
+  descriptionClassName?: string;
 }
 
-export function SectionHeading({ eyebrow, title, description }: SectionHeadingProps) {
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  descriptionClassName,
+}: SectionHeadingProps) {
   return (
     <div className="flex flex-col items-center justify-center space-y-4 text-center">
       <div className="space-y-2">
@@ -12,7 +20,12 @@ export function SectionHeading({ eyebrow, title, description }: SectionHeadingPr
           {eyebrow}
         </div>
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{title}</h2>
-        <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+        <p
+          className={cn(
+            "text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed",
+            descriptionClassName,
+          )}
+        >
           {description}
         </p>
       </div>
