@@ -28,6 +28,7 @@ This portfolio is built with a modern, performant, and type-safe technology stac
 * **Animation:** [**Framer Motion**](https://www.framer.com/motion/) - A powerful animation library for React that makes it easy to create complex, fluid, and declarative animations.
 * **UI Components:** [**shadcn/ui**](https://ui.shadcn.com/) - Provides a set of beautifully designed, accessible, and unstyled component primitives that serve as the building blocks for the UI.
 * **Icons:** [**Lucide React**](https://lucide.dev/) - A lightweight and highly customizable SVG icon library that keeps the bundle size small.
+* **AI project showcase:** Three interactive case studies for FFA Remake, HK Transit Challenge and Info Dashboard, with real screenshots, applied skills, accessible project tabs, image enlargement and deployment/cost trade-offs. Content lives in `src/data/ai-projects.ts`; [capture and evidence notes](docs/ai-projects-evidence.md) explain how to keep it current.
 <div align="right"><a href="#toc">Back to Top</a></div>
 
 ## <a name="structure"></a>Project Structure

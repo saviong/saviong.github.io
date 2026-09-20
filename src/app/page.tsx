@@ -12,6 +12,8 @@ import { CareerPath } from "@/components/career-path";
 import { WorldMap } from "@/components/world-map";
 import { GitHubContributions } from "@/components/github-contributions";
 import { SectionHeading } from "@/components/section-heading";
+import { AIProjects } from "@/components/ai-projects";
+import { ArrowUpRight } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -49,6 +51,9 @@ export default function Page() {
             </BlurFade>
           </div>
         </div>
+        <Link href="#ai-projects" className="mt-6 inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors hover:bg-muted">
+          Explore my AI-assisted projects <ArrowUpRight className="size-4" aria-hidden="true" />
+        </Link>
       </section>
       <section id="career-path">
         <div className="w-full py-4">
@@ -70,7 +75,8 @@ export default function Page() {
           </Markdown>
         </BlurFade>
       </section>
-      <section id="work">
+      <AIProjects />
+      <section id="work" className="scroll-mt-8">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
             <h2 className="text-xl font-bold">Work Experience</h2>
@@ -143,9 +149,9 @@ export default function Page() {
         <div className="space-y-12 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
             <SectionHeading
-              eyebrow="My Projects"
-              title="Check out my latest work"
-              description="I build scalable, automated, and efficient solutions. The following projects demonstrate how I apply these concepts."
+              eyebrow="More Projects"
+              title="Cloud foundations & experiments"
+              description="Explore the infrastructure, automation and applied science projects behind my move into Cloud and DevOps."
             />
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 12}>

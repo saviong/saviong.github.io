@@ -6,7 +6,7 @@ export const DATA = {
   initials: "SN",
   url: "https://saviong.github.io",
   description:
-    "",
+    "From chemistry to Cloud & DevOps. I build practical software with AI, automate the repetitive work, and make deliberate decisions about reliability and cost.",
   summary:
     `My love for technology started long before I ever had a formal job. Growing up in Hong Kong, I was the kid who enjoyed creating simple web games in PHP and CGI just for fun. Building things, solving puzzles, and experimenting with ideas has always been part of who I am.
 
@@ -138,29 +138,6 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
     },
   ],
   projects: [
-    {
-      title: "Info Dashboard for HK & UK Transit",
-      href: "https://info-sav.vercel.app/",
-      dates: "Sep 2026",
-      description:
-        `A configurable board of up to eight widgets showing live departures, service status, traffic and weather for Hong Kong and the UK. Aggregates MTR, KMB, Citybus, TfL and National Rail feeds alongside Hong Kong Observatory data through an Azure Container Apps backend, with a bilingual English and Chinese interface and browser-only storage that needs no account.`,
-      technologies: [
-        "React",
-        "Vite",
-        "Azure Container Apps",
-        "REST APIs",
-        "Vercel",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://info-sav.vercel.app/",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
     {
       title: "Interactive Azure Architecture Lab",
       href: "/azure-lab",

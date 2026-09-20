@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+.ai-project-grid {
+  background-image: linear-gradient(to right, rgb(16 185 129 / 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgb(16 185 129 / 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.ai-capture-dialog::backdrop {
+  background: rgb(2 6 23 / 0.8);
+  backdrop-filter: blur(6px);
+}
+
+body:has(.ai-capture-dialog[open]) {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-showcase *, .ai-showcase *::before, .ai-showcase *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer base {
     :root {
       --background: 0 0% 100%;
