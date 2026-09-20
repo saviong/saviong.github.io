@@ -2,17 +2,15 @@
 
 import { useRef, useState, type KeyboardEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, Code2, Maximize2, Sparkles, X } from "lucide-react";
-import Image from "next/image";
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, Code2, Sparkles } from "lucide-react";
+import { ProjectScreenshots } from "@/components/project-screenshots";
 import { AI_PROJECTS } from "@/data/ai-projects";
 import { cn } from "@/lib/utils";
 
 export function AIProjects() {
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-  const dialog = useRef<HTMLDialogElement>(null);
   const reducedMotion = useReducedMotion();
-  const project = AI_PROJECTS[active];
 
   function moveTab(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next = index;
@@ -57,13 +55,7 @@ export function AIProjects() {
             {active === index && <motion.div initial={reducedMotion ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
               <div className="px-5 pt-7 sm:px-9">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-[11px] text-muted-foreground"><span>{item.category}</span><span className="flex items-center gap-1.5"><span className="size-1.5 rounded-full bg-emerald-500" aria-hidden="true" />{item.hosting}</span></div>
-                <figure>
-                  <button type="button" onClick={() => dialog.current?.showModal()} aria-label={`Enlarge ${item.title} screenshot`} aria-haspopup="dialog" className="group relative block w-full overflow-hidden rounded-xl border border-slate-700 bg-slate-950 text-left shadow-lg outline-offset-4 focus-visible:outline-emerald-600">
-                    <div className="flex h-8 items-center gap-1.5 border-b border-white/10 px-3" aria-hidden="true"><span className="size-1.5 rounded-full bg-slate-600" /><span className="size-1.5 rounded-full bg-slate-600" /><span className="size-1.5 rounded-full bg-slate-600" /><span className="ml-3 font-mono text-[10px] text-slate-400">{new URL(item.url).hostname}</span><Maximize2 className="ml-auto size-3 text-slate-400" /></div>
-                    <div className="relative aspect-[16/9] overflow-hidden"><Image src={item.image} alt={item.imageAlt} fill sizes="(min-width: 1024px) 780px, (min-width: 640px) 600px, 90vw" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.025] motion-reduce:transform-none motion-reduce:transition-none" /><span className="absolute bottom-3 right-3 rounded-full border border-white/20 bg-slate-950/85 px-3 py-1.5 text-[10px] font-medium text-white backdrop-blur-sm">View capture <ArrowUpRight className="ml-1 inline size-3" aria-hidden="true" /></span></div>
-                  </button>
-                  <figcaption className="mt-2 flex flex-wrap justify-between gap-1 text-[10px] text-muted-foreground"><span>{item.caption}</span><span>Screen capture · September 2026</span></figcaption>
-                </figure>
+                <ProjectScreenshots key={item.id} title={item.title} url={item.url} screenshots={item.screenshots} />
               </div>
               <div className="grid gap-6 px-5 py-7 sm:px-9 md:grid-cols-[1.1fr_1fr] md:gap-9">
                 <div>
@@ -88,8 +80,24 @@ export function AIProjects() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400">Cloud choices / Operating cost</p>
         <h3 id="cloud-decisions-title" className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">The right infrastructure for the job.</h3>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">Three workloads, three deployment decisions. I look at what needs to run, what can stay in the browser, and what each extra service costs to operate.</p>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {AI_PROJECTS.map((item) => <article key={item.id} className="rounded-2xl border bg-card p-5 transition-colors hover:border-emerald-600/40"><div className="flex items-center justify-between gap-2"><p className="text-xs font-semibold">{item.title}</p><span className="font-mono text-[10px] text-muted-foreground">{item.number}</span></div><div className="my-5 space-y-2" aria-label={`${item.title} architecture`}>{item.route.map((step, index) => <div key={step}>{index > 0 && <ArrowDown className="mx-auto mb-2 size-3 text-emerald-600" aria-hidden="true" />}<p className="rounded-lg border border-dashed bg-muted/30 px-2 py-2 text-center font-mono text-[10px]">{step}</p></div>)}</div><h4 className="text-sm font-semibold">{item.costTitle}</h4><p className="mt-2 text-xs leading-relaxed text-muted-foreground">{item.cost}</p><details className="mt-4 border-t pt-3"><summary className="cursor-pointer text-xs font-medium marker:text-emerald-600">The trade-off</summary><p className="mt-2 text-xs leading-relaxed text-muted-foreground">{item.tradeoff}</p></details></article>)}
+        <div className="mt-6 space-y-4">
+          {AI_PROJECTS.map((item) => (
+            <article key={item.id} className="infrastructure-card grid grid-cols-[minmax(85px,0.65fr)_minmax(0,1.35fr)] overflow-hidden rounded-2xl border bg-card transition-colors hover:border-emerald-600/40 sm:grid-cols-[240px_minmax(0,1fr)]">
+              <div className="flex flex-col justify-center border-r bg-emerald-500/[0.035] p-3 sm:p-6">
+                <p className="font-mono text-[10px] text-emerald-700 dark:text-emerald-400">{item.number} /</p>
+                <h4 className="mt-2 text-xs font-semibold sm:text-sm">{item.title}</h4>
+                <div className="mt-5 space-y-2" aria-label={`${item.title} architecture`}>
+                  {item.route.map((step, index) => <div key={step}>{index > 0 && <ArrowDown className="mx-auto mb-2 size-4 text-emerald-600" aria-hidden="true" />}<p className="rounded-lg border border-emerald-600/20 bg-background px-1.5 py-3 text-center font-mono text-[9px] leading-relaxed sm:px-3 sm:text-[11px]">{step}</p></div>)}
+                </div>
+              </div>
+              <div className="min-w-0 p-4 sm:p-6">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">The operating decision</p>
+                <h4 className="mt-2 text-base font-semibold tracking-tight sm:text-lg">{item.costTitle}</h4>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">{item.cost}</p>
+                <details className="mt-4 border-t pt-3"><summary className="cursor-pointer text-xs font-medium marker:text-emerald-600">The trade-off</summary><p className="mt-2 text-xs leading-relaxed text-muted-foreground">{item.tradeoff}</p></details>
+              </div>
+            </article>
+          ))}
         </div>
         <p className="mt-4 text-[10px] leading-relaxed text-muted-foreground">Architecture reflects project configuration reviewed in September 2026. Included quotas are conditional, not a guarantee of zero total cost. Platform references: <a className="underline underline-offset-2" href="https://vercel.com/docs/plans/hobby" target="_blank" rel="noopener noreferrer">Vercel Hobby</a>, <a className="underline underline-offset-2" href="https://learn.microsoft.com/en-us/azure/cosmos-db/free-tier" target="_blank" rel="noopener noreferrer">Cosmos DB free tier</a>, <a className="underline underline-offset-2" href="https://learn.microsoft.com/en-us/azure/container-apps/billing" target="_blank" rel="noopener noreferrer">Container Apps billing</a>.</p>
       </section>
@@ -100,11 +108,7 @@ export function AIProjects() {
         <a href="#work" className="mt-3 inline-flex items-center gap-2 text-xs font-semibold hover:underline">See the experience behind the projects<ArrowRight className="size-3.5" aria-hidden="true" /></a>
       </aside>
 
-      <dialog ref={dialog} aria-labelledby="capture-title" className="ai-capture-dialog w-[min(1200px,94vw)] max-w-none overflow-hidden rounded-2xl border bg-background p-0 text-foreground shadow-2xl" onClick={(event) => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
-        <div className="flex items-center justify-between gap-4 border-b px-4 py-3"><h3 id="capture-title" className="text-sm font-semibold">{project.title} · Screen capture</h3><button type="button" autoFocus onClick={() => dialog.current?.close()} aria-label="Close screenshot" className="flex size-9 items-center justify-center rounded-full border hover:bg-muted focus-visible:outline-emerald-600"><X className="size-4" /></button></div>
-        <div className="relative aspect-[16/9]"><Image src={project.image} alt={project.imageAlt} fill sizes="94vw" className="object-contain" /></div>
-        <p className="px-4 py-3 text-xs text-muted-foreground">{project.caption} · Captured September 2026</p>
-      </dialog>
+
     </section>
   );
 }

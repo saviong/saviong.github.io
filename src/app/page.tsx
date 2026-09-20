@@ -1,8 +1,6 @@
 import BlurFade from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCarousel } from "@/components/project-carousel";
 import { ResumeCard } from "@/components/resume-card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -13,58 +11,15 @@ import { WorldMap } from "@/components/world-map";
 import { GitHubContributions } from "@/components/github-contributions";
 import { SectionHeading } from "@/components/section-heading";
 import { AIProjects } from "@/components/ai-projects";
-import { ArrowUpRight } from "lucide-react";
+import { PortfolioHero } from "@/components/portfolio-hero";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
-      <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 flex justify-between">
-            <div className="flex-col flex flex-1 space-y-1.5">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
-                yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
-              />
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY * 1.5}
-                className="text-sm text-muted-foreground md:text-base"
-                yOffset={8}
-                text={`I'm Ng Chung Yeung (吳仲洋). In Cantonese, "Ng" (like the 'ng' in song), "Chung" (ch-uh-ng), "Yeung" (sounds like 'young'). 
-                My English and Christian name is Savio.`}
-              />
-              <BlurFadeText
-                className="max-w-[600px] md:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
-            </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-28 border">
-                <AvatarImage className="object-cover" alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
-          </div>
-        </div>
-        <Link href="#ai-projects" className="mt-6 inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors hover:bg-muted">
-          Explore my AI-assisted projects <ArrowUpRight className="size-4" aria-hidden="true" />
-        </Link>
-      </section>
-      <section id="career-path">
-        <div className="w-full py-4">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">
-              Chemist turned Cloud Engineer
-            </h2>
-          </BlurFade>
-          <CareerPath />
-        </div>
-      </section>
+      <PortfolioHero />
+      <CareerPath />
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
           <h2 className="text-xl font-bold">About</h2>

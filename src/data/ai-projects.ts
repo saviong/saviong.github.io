@@ -8,9 +8,11 @@ export const AI_PROJECTS = [
     description:
       "A Traditional Chinese browser RPG rebuilt from FF Adventure, pairing a Go game service with a typed React interface, persistent characters and a new world to explore.",
     url: "https://ffa-remake.vercel.app/",
-    image: "/projects/ffa-remake.png",
-    imageAlt: "FFA Remake running in a browser, showing the world exploration interface in Traditional Chinese.",
-    caption: "World exploration · Traditional Chinese interface",
+    screenshots: [
+      { src: "/projects/ffa-remake.png", alt: "English FFA Remake overview with world rankings and game navigation.", caption: "Realm overview & rankings" },
+      { src: "/projects/ffa-world-en.png", alt: "English world exploration view with Starfall Harbor and adventure destinations.", caption: "Starfall Harbor & world exploration" },
+      { src: "/projects/ffa-arena-en.png", alt: "English arena view showing NPC adventurers, character portraits and classes.", caption: "The arena & character classes" },
+    ],
     skills: ["Go", "React", "TypeScript", "Zod", "Cosmos DB", "Entra ID", "Docker", "Bicep"],
     evidence: [
       { title: "Modernise without losing the rules", text: "Separate game logic from presentation, preserve legacy mechanics and validate API responses before they enter the UI." },
@@ -33,9 +35,11 @@ export const AI_PROJECTS = [
     description:
       "A bilingual transport quiz with more than 1,000 questions, five transport categories, timed and full-length runs, and downloadable certificates. Built around the details that make Hong Kong familiar.",
     url: "https://hk-transit-challenge.vercel.app/",
-    image: "/projects/hk-transit-challenge.png",
-    imageAlt: "Hong Kong Transit Challenge showing its illustrated railway network, bilingual title and game mode selection.",
-    caption: "Challenge selection · English and Traditional Chinese",
+    screenshots: [
+      { src: "/projects/hk-transit-challenge.png", alt: "Hong Kong Transit Challenge with English selected and the two game modes.", caption: "Choose a challenge" },
+      { src: "/projects/transit-categories-en.png", alt: "English transport category selection for MTR, bus, Light Rail, tram and ferries.", caption: "Five ways to explore Hong Kong" },
+      { src: "/projects/transit-gameplay-en.png", alt: "An English transport question during a Full Line Run with score and answer controls.", caption: "A full run in play" },
+    ],
     skills: ["React", "TypeScript", "Vite", "i18n", "Web Audio", "Canvas", "Data validation", "GitHub Actions"],
     evidence: [
       { title: "Make content testable", text: "Validate question structure, translations and duplicate facts; cross-check transport questions against reference tables and route data." },
@@ -58,9 +62,11 @@ export const AI_PROJECTS = [
     description:
       "A configurable dashboard for Hong Kong and UK transport, traffic and weather, with draggable widgets, shareable board layouts and 3D transit maps. React brings the data together; Flask manages the feeds.",
     url: "https://info-sav.vercel.app/",
-    image: "/projects/info-dashboard.png",
-    imageAlt: "Info Dashboard displaying live Hong Kong transport and weather widgets in a configurable board.",
-    caption: "Live information board · Hong Kong transport and weather",
+    screenshots: [
+      { src: "/projects/info-dashboard.png", alt: "English Info Dashboard with Hong Kong MTR network status and weather widgets.", caption: "Transport & weather at a glance" },
+      { src: "/projects/dashboard-hk-map-en.png", alt: "English Hong Kong 3D transit map showing the MTR network and map controls.", caption: "Hong Kong in 3D" },
+      { src: "/projects/dashboard-uk-map-en.png", alt: "English UK transit map showing London rail lines and transport controls.", caption: "London’s transport network" },
+    ],
     skills: ["Python", "Flask", "React", "REST APIs", "MapLibre", "Docker", "Azure Container Apps", "CI/CD"],
     evidence: [
       { title: "Make live feeds dependable", text: "Cache responses, combine concurrent requests and enforce per-provider rate limits. Guard route-table rebuilds against incomplete upstream data." },

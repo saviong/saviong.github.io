@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.hero-glow {
+  background: radial-gradient(circle, rgb(16 185 129 / 0.12), transparent 70%);
+}
+
+.capture-progress {
+  animation: capture-progress 4s linear forwards;
+}
+
+@keyframes capture-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 .ai-project-grid {
   background-image: linear-gradient(to right, rgb(16 185 129 / 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgb(16 185 129 / 0.07) 1px, transparent 1px);
   background-size: 32px 32px;
@@ -18,7 +31,8 @@ body:has(.ai-capture-dialog[open]) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ai-showcase *, .ai-showcase *::before, .ai-showcase *::after {
+  .ai-showcase *, .ai-showcase *::before, .ai-showcase *::after,
+  .portfolio-hero *, .career-art * {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;

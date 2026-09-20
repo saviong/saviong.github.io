@@ -1,0 +1,14 @@
+# This personal portfolio is not offered for automated collection or archiving.
+User-agent: *
+Disallow: /
+
+# Let search engines observe the HTTP 403 denial from middleware, so existing
+# URLs can leave their indexes. These entries do not grant access to content.
+# A robots.txt-only block could leave a URL-only search listing behind.
+User-agent: Googlebot
+User-agent: Bingbot
+Allow: /
+
+# Google-Extended is a usage-control token, not a separate HTTP user agent.
+User-agent: Google-Extended
+Disallow: /

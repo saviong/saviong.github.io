@@ -28,7 +28,9 @@ This portfolio is built with a modern, performant, and type-safe technology stac
 * **Animation:** [**Framer Motion**](https://www.framer.com/motion/) - A powerful animation library for React that makes it easy to create complex, fluid, and declarative animations.
 * **UI Components:** [**shadcn/ui**](https://ui.shadcn.com/) - Provides a set of beautifully designed, accessible, and unstyled component primitives that serve as the building blocks for the UI.
 * **Icons:** [**Lucide React**](https://lucide.dev/) - A lightweight and highly customizable SVG icon library that keeps the bundle size small.
-* **AI project showcase:** Three interactive case studies for FFA Remake, HK Transit Challenge and Info Dashboard, with real screenshots, applied skills, accessible project tabs, image enlargement and deployment/cost trade-offs. Content lives in `src/data/ai-projects.ts`; [capture and evidence notes](docs/ai-projects-evidence.md) explain how to keep it current.
+* **AI project showcase:** Three interactive case studies for FFA Remake, HK Transit Challenge and Info Dashboard, each with three English screenshots in a four-second slideshow, applied skills, accessible controls, image enlargement and horizontal deployment/cost cards. Content lives in `src/data/ai-projects.ts`; [capture and evidence notes](docs/ai-projects-evidence.md) explain how to keep it current.
+* **Career presentation:** A focused introduction and an animated, interactive journey connecting chemistry, business, current laboratory operations and recent cloud/AI projects, with reduced-motion support.
+* **Crawler restrictions:** No-index metadata and headers, robots.txt rules, and server-side filtering of identifiable crawlers. See [protection, hosting requirements and limitations](docs/crawler-protection.md). The site remains public; these controls cannot prevent all copying or remove existing archives.
 <div align="right"><a href="#toc">Back to Top</a></div>
 
 ## <a name="structure"></a>Project Structure

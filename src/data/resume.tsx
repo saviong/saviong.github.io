@@ -8,15 +8,9 @@ export const DATA = {
   description:
     "From chemistry to Cloud & DevOps. I build practical software with AI, automate the repetitive work, and make deliberate decisions about reliability and cost.",
   summary:
-    `My love for technology started long before I ever had a formal job. Growing up in Hong Kong, I was the kid who enjoyed creating simple web games in PHP and CGI just for fun. Building things, solving puzzles, and experimenting with ideas has always been part of who I am.
+    `I’m a chemistry graduate from Hong Kong, now based in the UK and working in laboratory operations at Anthony Nolan. Automating everyday tasks with VBA and Power Automate led me towards Cloud & DevOps.
 
-I originally studied Chemistry at university in Hong Kong, but everything changed during an exchange semester at TUM in Germany. That experience wasn’t only about academics. I discovered new perspectives through the culture, the food, and even the beer. Traveling and meeting people from different backgrounds opened my mind and shaped how I approach challenges today.
-
-When I entered the professional world, I naturally looked for ways to improve processes. I started automating tasks with VBA and later built workflows in Power Automate that saved my team hours of repetitive work. That was my turning point. I realized my passion was in using technology to simplify life and make things more efficient. Since then, I have focused on Cloud and DevOps, moving away from the lab bench and into building scalable infrastructure with tools like Terraform and Bicep.
-
-I am a fast learner who continually explores new IT technologies. I dedicated two months to self-learning cloud computing and earned the AZ-104 certification on June 25. Afterwards, I expanded my skills by studying programming (with a focus on Python) and Terraform, achieving my Terraform Associate certification within a month.
-
-Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it is a useful gadget or a custom design. Music is also a big part of my life. I play piano, keyboard, and guitar, which helps me relax and express creativity in a different way. I also enjoy hiking and camping, something that grew from weekends outdoors in Hong Kong. On quieter days, I like gaming on my Xbox, Switch, or even revisiting some retro classics. Cooking is another way I unwind and explore creativity.`,
+I’m Azure Administrator and Terraform Associate certified. I now build practical web apps with Claude and ChatGPT, applying the same curiosity and care to code, testing and cloud costs. Away from the keyboard, I enjoy music, hiking, cooking and 3D printing.`,
   avatarUrl: "/me.png",
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -101,7 +95,7 @@ Outside of tech, I enjoy bringing ideas to life with my 3D printer, whether it i
       issuer: "HashiCorp",
       href: "https://www.credly.com/badges/4d07a91e-a75c-4353-bfe3-05b5ba491058/public_url",
       title: "HashiCorp Certified: Terraform Associate (003)",
-      logoUrl: "https://saviongresume.blob.core.windows.net/$web/pic/tf003.png",
+      logoUrl: "/certifications/terraform-associate-003.png",
       year: "",
     },
     {

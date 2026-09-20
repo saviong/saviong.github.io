@@ -16,15 +16,21 @@ The portfolio does not claim audited savings, verified monthly bills, a user cou
 
 ## Screenshots
 
-Actual browser captures of public demo interfaces, taken 20 September 2026, without sign-in or player-account creation. Dashboard widgets were configured in a fresh browser tab using public MTR status and Hong Kong Observatory data. Transport and weather values are snapshots, not current information.
+Actual browser captures of public demo interfaces, taken 20 September 2026, without sign-in or player-account creation. English was selected before capture; original branding and proper names remain unchanged. Dashboard widgets use public transport and weather feeds. Transport and weather values are snapshots, not current information.
 
 | Asset in `public/projects/` | Source |
 | --- | --- |
-| `ffa-remake.png` | https://ffa-remake.vercel.app/ — world exploration |
-| `hk-transit-challenge.png` | https://hk-transit-challenge.vercel.app/ — challenge selection |
+| `ffa-remake.png` | https://ffa-remake.vercel.app/ — English realm overview and rankings |
+| `ffa-world-en.png` | FFA Remake — Starfall Harbor and world exploration |
+| `ffa-arena-en.png` | FFA Remake — public arena and NPC classes |
+| `hk-transit-challenge.png` | https://hk-transit-challenge.vercel.app/ — English challenge selection |
+| `transit-categories-en.png` | HK Transit Challenge — transport categories |
+| `transit-gameplay-en.png` | HK Transit Challenge — an English Full Line Run question |
 | `info-dashboard.png` | https://info-sav.vercel.app/ — MTR status and weather board |
+| `dashboard-hk-map-en.png` | Info Dashboard — Hong Kong MTR network in the 3D map |
+| `dashboard-uk-map-en.png` | Info Dashboard — London transport map with Jubilee and Victoria lines |
 
-To refresh: open the public demo, choose a useful public view, capture the browser viewport, and replace the corresponding PNG. Keep the descriptive alt text and capture date in sync in `src/data/ai-projects.ts` and `src/components/ai-projects.tsx`. Do not use account details or private player information in portfolio captures.
+To refresh: open the public demo, select English, choose a useful public view, capture the browser viewport, and replace the corresponding asset. Keep the descriptive alt text and captions in `src/data/ai-projects.ts` and the capture date in `src/components/project-screenshots.tsx` in sync. Do not use account details or private player information in portfolio captures.
 
 ## Platform references
 
@@ -38,6 +44,8 @@ Consulted official documentation to qualify cost statements; these links also ap
 
 Run `npm run lint`, `npx tsc --noEmit`, and `npm run build`. Run the preview **after** the build: Next.js dev and build processes share `.next` and must not run concurrently.
 
-Check all three tabs with mouse and Left/Right/Home/End, image zoom with close button and Escape, focus restoration, deployment disclosures, external links, mobile width and light/dark themes. The project transition uses `useReducedMotion`; CSS disables showcase hover transitions for reduced-motion users. Captures are lazy-loaded through Next Image, and no live demo is embedded or polled by the portfolio.
+Check all three tabs with mouse and Left/Right/Home/End, slideshow controls and looping, image zoom with close button and Escape, focus restoration, deployment disclosures, external links, mobile width and light/dark themes. Each project starts with its English overview. The active project's three captures load through Next Image and crossfade every four seconds, with manual navigation and pause/play controls. Autoplay pauses on hover, keyboard focus, enlargement, hidden tabs and when the gallery is off screen. Reduced-motion users get manual navigation without animated transitions. No live demo is embedded or polled by the portfolio.
 
-Verified on 20 September 2026: production build, ESLint, TypeScript and `git diff --check` passed. Browser checks confirmed all three project views, keyboard selection (Right/Home/End), screenshot loading, native modal dismissal with both Escape and the close button, focus return to the screenshot trigger, deployment disclosure content, light/dark rendering and a 390px mobile viewport without horizontal overflow. No browser warnings or errors were recorded in the preview. Reduced-motion handling was reviewed in the implementation; an OS-level reduced-motion preference was not changed during verification.
+The hero introduces the career transition and credentials before the project CTA. The career artwork has four selectable stages, an animated connecting path and links to all three recent projects. It distinguishes the current laboratory role from cloud projects and learning. Infrastructure cards retain the flow on the left and the operating decision on the right at desktop and mobile widths.
+
+Verified on 20 September 2026: production build, ESLint, TypeScript and `git diff --check` passed. Browser checks covered the updated hero and career stage transitions, all nine loaded captures, automatic advance, manual navigation and wrapping, pause state, native modal dismissal with Escape and focus restoration, and light/dark rendering. Infrastructure cards have aligned left/right columns and are wider than tall at both desktop and 390px mobile widths. No horizontal overflow was found at 390px. Reduced-motion handling was reviewed in the implementation; an OS-level reduced-motion preference was not changed during verification. Restart the production preview after adding new public assets so Next.js registers them.
